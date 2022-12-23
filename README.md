@@ -1,4 +1,4 @@
-# ultranet
+# new-mac
 
 ## Project setup
 ```
