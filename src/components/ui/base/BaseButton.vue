@@ -49,5 +49,13 @@ a.black, button.black {
   color: $primary-black;
   border-color: #000;
 }
-
+a.pink, button.pink {
+  color: $primary-white;
+  background-color: $primary-pink;
+  border: none;
+}
+a.grey, button.grey {
+  color: $primary-grey;
+  border-color: $primary-grey;
+}
 </style>

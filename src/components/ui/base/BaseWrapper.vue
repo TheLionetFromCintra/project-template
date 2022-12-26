@@ -45,9 +45,29 @@
       max-width: 824px;
     }
   }
-  .plans {
+  .offers {
     .wrapper {
       max-width: 898px;
+    }
+  }
+  .reviews {
+    .wrapper {
+      max-width: 928px;
+    }
+  }
+  .questions {
+    .wrapper {
+      max-width: 1084px;
+    }
+  }
+  .help {
+    .wrapper {
+      max-width: 1206px;
+    }
+  }
+  .contacts {
+    .wrapper {
+      max-width: 1102px;
     }
   }
 </style>

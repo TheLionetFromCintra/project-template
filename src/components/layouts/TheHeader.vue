@@ -6,7 +6,7 @@
             <img src="@/assets/images/logo.svg" alt="logo">
           </router-link>
           <div class="phone">
-            <a href="tel:84991124367"><span>8 (499) 112 43 67</span></a>
+            <a href="tel:${84991124367"><span>8 (499) 112 43 67</span></a>
           </div>
           <base-button link mode="black" to="/primary" class="button">
             Получить займ

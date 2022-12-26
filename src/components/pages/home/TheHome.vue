@@ -1,29 +1,56 @@
 <template>
-  <the-header></the-header>
-  <main-block></main-block>
-  <base-wrapper class="steps" title="Как это работает?">
+  <div class="bg">
+    <the-header></the-header>
+    <main-block></main-block>
+  </div>
+
+  <base-wrapper class="steps observed" title="Как это работает?">
       <template #default>
         <steps-list></steps-list>
       </template>
   </base-wrapper>
-  <base-wrapper class="ways" title="Способы получения займа в МФО">
+  <base-wrapper class="ways observed" title="Способы получения займа в МФО">
     <template #default>
       <p class="text">Моментальный подбор подходящих займов: просто укажите, какая сумма вам необходима. Мы подберем предложения с моментальным переводом денег на карту.</p>
       <pay-list></pay-list>
     </template>
   </base-wrapper>
-  <div class="bg">
+  <div class="bg observed">
     <base-wrapper class="about" title="О нас">
       <template #default>
         <about-list></about-list>
       </template>
     </base-wrapper>
   </div>
-  <base-wrapper class="plans" title="Выберите свой займ в МФО">
+  <base-wrapper class="offers observed" title="Выберите свой займ в МФО">
     <template #default>
-      123
+      <offers-list></offers-list>
     </template>
   </base-wrapper>
+  <base-wrapper class="reviews observed" title="Отзывы наших клиентов">
+    <template #default>
+      <reviews-list></reviews-list>
+    </template>
+  </base-wrapper>
+  <base-wrapper class="questions observed" title="Часто спрашивают">
+    <template #default>
+      <questions-list></questions-list>
+    </template>
+  </base-wrapper>
+  <div class="bg observed">
+    <base-wrapper class="help" title="Мы помогаем получить деньги">
+      <template #default>
+        <stat-list></stat-list>
+      </template>
+    </base-wrapper>
+  </div>
+  <base-wrapper class="contacts observed" title="Контактная информация">
+    <template #default>
+      <contacts-list></contacts-list>
+    </template>
+  </base-wrapper>
+
+  <the-footer></the-footer>
 </template>
 
 <script>
@@ -32,54 +59,62 @@ import MainBlock from "@/components/pages/home/layouts/MainBlock";
 import StepsList from "@/components/pages/home/components/StepsList";
 import PayList from "@/components/pages/home/components/PayList";
 import AboutList from "@/components/pages/home/components/AboutList";
+import OffersList from "@/components/pages/home/components/OffersList";
+import StatList from "@/components/pages/home/components/StatList";
+import ContactsList from "@/components/pages/home/components/ContactsList";
+import TheFooter from "@/components/layouts/TheFooter";
+import QuestionsList from "@/components/pages/home/components/questions/QuestionsList";
+import ReviewsList from "@/components/pages/home/components/ReviewsList";
 
 export default {
   components: {
+    ReviewsList,
+    QuestionsList,
+    TheFooter,
+    ContactsList,
+    OffersList,
     AboutList,
     PayList,
     StepsList,
     TheHeader,
-    MainBlock
-  },
-  data() {
-    return {
-      scrolled: false
-    };
+    MainBlock,
+    StatList
   },
   methods: {
+    setObserver() {
+      const allSections = document.querySelectorAll('.observed');
 
+      const revealSection = function (entries, observer) {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.remove('observed--hidden');
+        observer.unobserve(entry.target);
+      };
+
+      const sectionObserver = new IntersectionObserver(revealSection, {
+        root: null,
+        threshold: 0.15,
+      });
+
+      allSections.forEach(function (section) {
+        sectionObserver.observe(section);
+        section.classList.add('observed--hidden');
+      });
+    }
   },
   mounted() {
-    const allSections = document.querySelectorAll('section');
-
-    const revealSection = function (entries, observer) {
-      const [entry] = entries;
-
-      if (!entry.isIntersecting) return;
-
-      entry.target.classList.remove('section--hidden');
-      observer.unobserve(entry.target);
-    };
-
-    const sectionObserver = new IntersectionObserver(revealSection, {
-      root: null,
-      threshold: 0.15,
-    });
-
-    allSections.forEach(function (section) {
-      sectionObserver.observe(section);
-      section.classList.add('section--hidden');
-    });
+    this.setObserver();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  section {
+  .observed {
     transition: transform 1s, opacity 1s;
   }
-
-  .section--hidden {
+  .observed--hidden {
     opacity: 0;
     transform: translateY(8rem);
   }
@@ -101,8 +136,22 @@ export default {
   .about {
     padding: 48px 0 50px 0;
   }
-  .plans {
+  .offers {
     margin-top: 86px;
+  }
+  .reviews {
+    margin-top: 138px;
+    padding-bottom: 138px;
+  }
+  .questions {
+    margin-top: 106px;
+    padding-bottom: 94px;
+  }
+  .help {
+    padding: 74px 0 90px 0;
+  }
+  .contacts {
+    margin-top: 94px;
   }
   .bg {
     overflow: hidden;
