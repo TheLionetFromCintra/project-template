@@ -13,7 +13,7 @@
           <span>{{ offer.price }}</span>
           <span>{{ offer.days }}</span>
         </div>
-        <base-button link mode="pink"  class="link" to="/primary">Выбрать</base-button>
+        <base-button link mode="green"  class="link" to="/primary">Выбрать</base-button>
     </li>
   </ul>
 </template>

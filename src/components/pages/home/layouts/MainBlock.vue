@@ -13,7 +13,7 @@
 
 <script>
 import BenefitsList from '../components/BenefitsList';
-import TheCalculator from '../components/TheCalculator';
+import TheCalculator from '../components/calc/TheCalculator';
 
  export default {
    components: {
@@ -25,12 +25,12 @@ import TheCalculator from '../components/TheCalculator';
 
 <style lang="scss" scoped>
 .main {
-  margin-top: 64px;
+  margin-top: 62px;
   padding-bottom: 50px;
   h1 {
     font-weight: 600;
     font-size: 48px;
-    line-height: 57px;
+    line-height: 54px;
     letter-spacing: 0.07em;
     color: $primary-blue-dark;
     margin: 0 auto;
@@ -42,7 +42,7 @@ import TheCalculator from '../components/TheCalculator';
     max-width: 754px;
     p {
       font-size: 32px;
-      line-height: 37px;
+      line-height: 36px;
       text-align: center;
       letter-spacing: 0.07em;
     }

@@ -7,7 +7,7 @@
   </ul>
   <div class="wrapper d-flex align-items-center justify-content-between">
     <h5 class="label">Поможем вам получить деньги в течение 10 минут</h5>
-    <base-button link mode="pink" to="/primary" class="link">Оформить заявку</base-button>
+    <base-button link mode="green" to="/primary" class="link">Оформить заявку</base-button>
   </div>
 </template>
 
@@ -75,5 +75,6 @@
   .link {
     padding: 27px;
     min-width: 260px;
+    margin-left: 16px;
   }
 </style>

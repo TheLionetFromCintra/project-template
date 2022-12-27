@@ -44,47 +44,41 @@ h2 {
     padding: 38px 48px 74px 48px;
   }
 }
+
 .about {
   .wrapper {
     max-width: 824px;
   }
-<<<<<<< HEAD
-  .about {
-    .wrapper {
-      max-width: 824px;
-    }
-  }
-  .offers {
-    .wrapper {
-      max-width: 898px;
-    }
-  }
-  .reviews {
-    .wrapper {
-      max-width: 928px;
-    }
-  }
-  .questions {
-    .wrapper {
-      max-width: 1084px;
-    }
-  }
-  .help {
-    .wrapper {
-      max-width: 1206px;
-    }
-  }
-  .contacts {
-    .wrapper {
-      max-width: 1102px;
-    }
-  }
-=======
 }
+.offers {
+  .wrapper {
+    max-width: 898px;
+  }
+}
+.reviews {
+  .wrapper {
+    max-width: 928px;
+  }
+}
+.questions {
+  .wrapper {
+    max-width: 1084px;
+  }
+}
+.help {
+  .wrapper {
+    max-width: 1206px;
+  }
+}
+.contacts {
+  .wrapper {
+    max-width: 1102px;
+  }
+}
+
 .plans {
   .wrapper {
     max-width: 898px;
   }
 }
->>>>>>> ec5caa1ac826e10c1c98da5896f0216235562adb
 </style>

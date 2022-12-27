@@ -44,7 +44,7 @@
 
 <style lang="scss" scoped>
   .benefits {
-    margin-top: 74px;
+    margin-top: 66px;
   }
   .wrapper {
     width: 100%;
