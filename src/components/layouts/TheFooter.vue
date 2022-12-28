@@ -24,14 +24,14 @@
       </div>
       <div class="bottom">
         <div class="container">
-          <div class="d-flex align-items-center justify-content-between">
+          <div class="parent d-flex align-items-center justify-content-between">
             <router-link to="/" class="logo img-wrapper d-flex align-items-center justify-content-center">
               <img src="@/assets/images/logo.svg" alt="logo">
             </router-link>
             <div class="wrapper d-flex flex-column align-items-center">
 <!--              не забыть replace-->
-              <a href="tel:79991111111">+ 7 999 111 11 11</a>
-              <a href="mailto:support@mail.ru">support@mail.ru</a>
+              <a class="link-hover" href="tel:79991111111">+ 7 999 111 11 11</a>
+              <a class="link-hover" href="mailto:support@mail.ru">support@mail.ru</a>
               <span>Все права защищены</span>
             </div>
             <base-button class="link" link mode="grey" to="/unsubscribe">Отписаться</base-button>
@@ -82,5 +82,46 @@ export default {}
   .link {
     padding: 12px;
     min-width: 198px;
+  }
+  @media(max-width: $tablet_size) {
+    .bottom {
+      padding: 64px 0;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .footer {
+      margin-top: 72px;
+    }
+    .description {
+      padding: 40px 0 28px 0;
+      font-size: 12px;
+      line-height: 18px;
+      &::v-deep p + p {
+        margin-top: 24px;
+      }
+    }
+    .bottom {
+      padding: 52px 0 108px 0;
+    }
+    .logo {
+      max-width: 102px;
+      height: 37px;
+      order: 1;
+    }
+    .parent {
+      flex-direction: column;
+    }
+    .wrapper {
+      margin: 0;
+      order: 3;
+      a, span {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+    .link {
+      margin: 32px 0 36px 0;
+      order: 2;
+    }
   }
 </style>

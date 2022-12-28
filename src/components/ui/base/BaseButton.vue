@@ -44,18 +44,41 @@ a, button {
   text-align: center;
   letter-spacing: 0.07em;
   outline: none;
+
+  transition: color 0.3s linear, background-color 0.3s linear, border-color 0.3s linear, box-shadow 0.2s linear;
 }
 a.black, button.black {
   color: $primary-black;
   border-color: #000;
+
+  &:hover {
+    color: $primary-white;
+    background-color: $primary-black;
+  }
+  &:focus, &:active, &:focus-within {
+    box-shadow: 0px 4px 20px rgba(25, 25, 25, 0.42);
+  }
 }
 a.green, button.green {
   color: $primary-white;
   background-color: $primary-green-light;
   border: none;
+  &:hover {
+    box-shadow: 0px 0px 5px rgba(66, 178, 141, 0.6), 0px 4px 15px rgba(33, 111, 85, 0.37);
+  }
+  &:focus, &:active, &:focus-within {
+    background-color: #227C5E;
+  }
 }
 a.grey, button.grey {
   color: $primary-grey;
   border-color: $primary-grey;
+  &:hover {
+    color: $primary-black;
+    border-color: $primary-black;
+  }
+  &:focus, &:active, &:focus-within {
+    filter: drop-shadow(0px 0px 12px rgba(25, 25, 25, 0.69));
+  }
 }
 </style>

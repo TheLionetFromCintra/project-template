@@ -25,7 +25,7 @@ body {
   font-weight: 400;
   font-style: normal;
   background-color: #FAFAFA;
-  color: $primary-black;
+  color: #181818;
 }
 
 .img-wrapper {
@@ -56,6 +56,14 @@ body {
   letter-spacing: 0.07em;
 }
 
+.link-hover {
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.3s linear;
+}
+.link-hover:hover, .link-hover:active, .link-hover:focus, .link-hover:focus-within {
+  border-bottom: 1px solid #181818;
+}
 .swiper {
   height: 100%;
 }
@@ -64,4 +72,47 @@ body {
   //justify-content: center;
   height: 100%;
 }
+.vue-slider-rail, .vue-slider-process {
+  border-radius: 0 !important;
+}
+.vue-slider-rail {
+  background-color: #EFF3F9 !important;
+  height: 3px !important;
+}
 
+.vue-slider-process {
+  background-color: #2740EE !important;
+}
+
+.vue-slider-dot-handle {
+  border: 2px solid #2740EE !important;
+}
+.vue-slider-dot-handle-focus {
+  box-shadow: none !important;
+}
+.vue-slider-dot-tooltip {
+  display: none !important;
+}
+
+@media(max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+  .subtitle {
+    font-size: 40px;
+    line-height: 44px;
+  }
+}
+
+@media(max-width: 768px) {
+  .subtitle {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+}

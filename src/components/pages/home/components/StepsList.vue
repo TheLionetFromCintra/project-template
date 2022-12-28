@@ -1,5 +1,5 @@
 <template>
-  <ul class="d-flex justify-content-between">
+  <ul class="list d-flex justify-content-between">
     <li class="step" v-for="(step, index) in steps" :key="step.description">
       <div class="num d-flex align-items-center justify-content-center">
         <div class="d-flex align-items-center justify-content-center"><span>{{ index + 1 }}</span></div>
@@ -75,5 +75,22 @@
   }
   .step + .step {
     margin-left: 12px;
+  }
+  @media(max-width: $mobile_size) {
+    .list {
+      flex-direction: column;
+      max-width: 290px;
+      margin: 0 auto;
+    }
+    .step {
+      .description {
+        font-size: 16px;
+        line-height: 24px;
+        max-width: 230px;
+      }
+    }
+    .step + .step {
+      margin: 38px 0 0 0;
+    }
   }
 </style>

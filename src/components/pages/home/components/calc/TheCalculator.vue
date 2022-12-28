@@ -3,7 +3,15 @@
       <div class="wrapper d-flex align-items-center justify-content-between">
         <div class="range d-flex align-items-center justify-content-between">
           <div class="calc">
+            <div class="mobile d-flex align-items-center justify-content-between">
+              <span>Сумма</span>
+              <span>{{ loanPriceString }} ₽</span>
+            </div>
             <sum-calc v-model="sum" :showRangeInfo="3"></sum-calc>
+            <div class="mobile d-flex align-items-center justify-content-between">
+                <span>Срок</span>
+                <span>{{ days.count }} {{ loanDaysString }}</span>
+            </div>
             <days-calc v-model="days"></days-calc>
           </div>
           <div class="result">
@@ -18,6 +26,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+
 import term from '@/helpers/string/term';
 import price from '@/helpers/string/price';
 import SumCalc from "@/components/pages/home/components/calc/SumCalc";
@@ -35,6 +45,12 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
       };
     },
     computed: {
+      trueCountValue() {
+        return JSON.parse(Cookies.get('term')).count || this.days.count;
+      },
+      trueTypeValue() {
+        return JSON.parse(Cookies.get('term')).type || this.days.type;
+      },
       loanDaysString() {
         if (this.days.type === 'days') {
           return term(this.days.count);
@@ -45,6 +61,13 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
         return price(this.sum);
       }
     },
+    created() {
+      this.sum = +Cookies.get('sum') || this.sum;
+      this.days = {
+          type: this.trueTypeValue,
+          count: this.trueCountValue
+      };
+    }
   }
 </script>
 
@@ -91,5 +114,52 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
     line-height: 19px;
     text-align: center;
     margin: 12px 0;
+  }
+  .mobile {
+    display: none !important;
+  }
+  @media(max-width: $tablet_size) {
+    .wrapper {
+      padding: 26px 30px 20px 30px;
+    }
+    .calc {
+      max-width: 260px;
+    }
+    .link {
+      min-width: 227px;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .calculator {
+      max-width: 88%;
+      margin: 36px auto 0 auto;
+    }
+    .wrapper {
+      box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
+      border: none;
+      padding: 18px 0;
+      flex-direction: column;
+    }
+    .link {
+      margin: 24px 0 0 0;
+      padding: 12px;
+      min-width: 212px;
+    }
+    .range, .calc {
+      max-width: 100%;
+    }
+    .text, .result {
+      display: none;
+    }
+    .mobile {
+      display: flex !important;
+      margin-bottom: 4px;
+      padding: 0 15px;
+      span {
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.07em;
+      }
+    }
   }
 </style>

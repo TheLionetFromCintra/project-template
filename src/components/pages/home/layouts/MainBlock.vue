@@ -48,4 +48,21 @@ import TheCalculator from '../components/calc/TheCalculator';
     }
   }
 }
+@media(max-width: $mobile_size) {
+  .main {
+    margin-top: 46px;
+    padding-bottom: 25px;
+    h1 {
+      font-size: 36px;
+      line-height: 43px;
+    }
+    .description {
+      margin: 18px auto 0 auto;
+      p {
+        font-size: 16px;
+        line-height: 19px;
+      }
+    }
+  }
+}
 </style>

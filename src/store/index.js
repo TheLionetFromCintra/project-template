@@ -1,10 +1,9 @@
 import { createStore } from "vuex";
-
-// import mediaModule from "./modules/media/index.js";
+import appModule from "./modules/app/index.js";
 
 const store = createStore({
     modules: {
-        // media: mediaModule,
+        app: appModule,
     },
 });
 

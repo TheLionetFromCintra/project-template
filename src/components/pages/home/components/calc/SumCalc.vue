@@ -6,6 +6,7 @@
         :min="config.min"
         :max="config.max"
         :interval="config.step"
+        @change="changeAmount"
     >
     </vue-slider>
     <div class="range d-flex align-items-center justify-content-between" v-if="showRangeInfo">
@@ -20,28 +21,33 @@
 </template>
 
 <script>
-import price from '@/helpers/string/price';
-import VueSlider from 'vue-slider-component';
-// import { mapGetters } from 'vuex';
+import Cookies from 'js-cookie';
 
-import 'vue-slider-component/theme/antd.css'
+import { defineAsyncComponent } from "vue";
+import price from '@/helpers/string/price';
+import { mapGetters } from 'vuex';
+import 'vue-slider-component/theme/antd.css';
+
+const VueSlider = defineAsyncComponent(() => import('vue-slider-component'));
+
 
   export default {
-    components: {
-      VueSlider
-    },
-    props: {
-      model: {
-        type: Number
-      },
-      showRangeInfo: {
-        type: Number,
-        default: 0
-      }
-    },
+   components: {
+     VueSlider
+   },
+   props: {
+     modelValue: {
+       type: Number
+     },
+     showRangeInfo: {
+       type: Number,
+       default: 0
+     }
+   },
+   emits: ['update:modelValue'],
    data() {
      return {
-       loanSum: 1000,
+       loanSum: null,
        config: {
          min: 1000,
          max: 100000,
@@ -49,31 +55,26 @@ import 'vue-slider-component/theme/antd.css'
        }
      };
    },
+   created() {
+      this.loanSum = +Cookies.get('sum') || this.calculator.amount;
+    },
    computed: {
-       // ...mapGetters({
-       //   calculator: 'application/calculator'
-       // }),
+       ...mapGetters({
+         calculator: 'app/calculator',
+       }),
       minPrice() {
         return price(this.config.min);
       },
-     // loanSum: {
-     //   set(amount) {
-     //     this.$emit('change', amount)
-     //     this.$store.commit('application/updateCalculator', { amount })
-     //   },
-     //   get() {
-     //     return this.model
-     //   }
-     // }
    },
    methods: {
      setPriceRange(num) {
        return price(((this.config.max / (this.showRangeInfo - 1)) * (num - 1) || 0));
+     },
+     changeAmount(e) {
+       this.$emit('update:modelValue', e);
+       this.$store.dispatch('app/setCalculator', { amount: e });
      }
    },
-  // created() {
-  //   this.loanSum = this.calculator.amount
-  // },
   }
 </script>
 
@@ -90,6 +91,11 @@ import 'vue-slider-component/theme/antd.css'
       letter-spacing: 0.07em;
       color: #B4B4B4;
       display: inline-block;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .range {
+      display: none !important;
     }
   }
 </style>

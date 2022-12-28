@@ -1,13 +1,13 @@
 <template>
   <div class="benefits">
       <ul class="wrapper d-flex align-items-center justify-content-between">
-        <li class="benefit d-flex" v-for="benefit in benefits" :key="benefit.title">
+        <li class="benefit d-flex align-items-center" v-for="benefit in benefits" :key="benefit.title">
           <div class="icon d-flex align-items-center justify-content-center">
             <div class="img img-wrapper d-flex align-items-center justify-content-center">
               <img :src="require(`@/assets/images/icons/benefits/icon-${benefit.icon}.png`)" alt="benefit icon">
             </div>
           </div>
-          <div class="wrapper">
+          <div class="helper">
             <span>{{ benefit.title }}</span>
             <p>{{ benefit.description }}</p>
           </div>
@@ -44,24 +44,25 @@
 
 <style lang="scss" scoped>
   .benefits {
-    margin-top: 66px;
+    margin-top: 64px;
   }
   .wrapper {
     width: 100%;
-    max-width: 984px;
+    max-width: 950px;
     margin: 0 auto;
   }
   .benefit {
     width: 100%;
-    max-width: 315px;
-    .icon {
-      width: 64px;
-      height: 64px;
-      flex-shrink: 0;
+    max-width: 305px;
 
-      background: #FAFAFA;
-      border: 1px solid #000;
-      border-radius: 10px;
+    background: #FAFAFA;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 15px 18px 18px 18px;
+    .icon {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
       margin-right: 24px;
 
       .img {
@@ -69,24 +70,63 @@
         height: 32px;
       }
     }
-    .wrapper {
-      max-width: 228px;
+    .helper {
+      max-width: 164px;
       span, p {
         font-size: 16px;
-        line-height: 19px;
+        line-height: 17px;
         letter-spacing: 0.07em;
       }
       span {
         display: inline-block;
         font-weight: 600;
-        margin-bottom: 12px;
-      }
-      p {
-        line-height: 150%;
+        margin-bottom: 6px;
       }
     }
   }
   .benefit + .benefit {
     margin-left: 18px;
+  }
+  @media(max-width: $mobile_size) {
+    .benefits {
+      max-width: 88%;
+      margin: 52px auto 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+    .wrapper {
+      max-width: 950px;
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .benefit {
+      max-width: 305px;
+
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+
+
+      .icon {
+        width: 62px;
+        height: 62px;
+        margin-right: 12px;
+
+        background: #FAFAFA;
+        border: 1px solid #000;
+        border-radius: 10px;
+      }
+      .helper {
+        max-width: 164px;
+        p {
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+    }
+    .benefit + .benefit {
+      margin: 24px 0 0 0;
+    }
   }
 </style>

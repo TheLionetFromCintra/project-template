@@ -97,7 +97,43 @@ export default {
     .description {
       margin-top: 12px;
       line-height: 130%;
-      letter-spacing: 0.07em;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .items {
+      grid-template-columns: repeat(1, 290px);
+      grid-column-gap: 0;
+      grid-row-gap: 18px;
+      justify-content: center;
+    }
+    .item {
+      min-height: 145px;
+      padding: 20px;
+
+      .top {
+        min-height: 55px;
+        align-items: flex-start !important;
+      }
+
+      .icon {
+        width: 55px;
+        height: 55px;
+        .img-wrapper {
+          max-width: 32px;
+          height: 32px;
+        }
+      }
+
+      .title {
+        font-size: 16px;
+        line-height: 19px;
+      }
+
+      .description {
+        margin-top: 15px;
+        font-size: 12px;
+        line-height: 18px;
+      }
     }
   }
 </style>

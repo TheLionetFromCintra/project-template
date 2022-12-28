@@ -75,10 +75,39 @@ h2 {
     max-width: 1102px;
   }
 }
-
 .plans {
   .wrapper {
     max-width: 898px;
+  }
+}
+@media(max-width: $mobile_size) {
+  .ways {
+    .subtitle {
+      margin-bottom: 36px;
+    }
+    .wrapper {
+      max-width: 342px;
+      padding: 22px 26px 34px 26px;
+    }
+  }
+  .about {
+    padding: 0;
+  }
+  .offers, .about {
+    .subtitle {
+      margin-bottom: 24px;
+    }
+  }
+  .questions {
+    .subtitle {
+      margin-bottom: 40px;
+    }
+  }
+  .help, .steps {
+    padding: 0;
+    .subtitle {
+      display: none;
+    }
   }
 }
 </style>

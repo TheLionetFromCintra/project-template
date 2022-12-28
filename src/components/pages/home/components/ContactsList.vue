@@ -7,8 +7,8 @@
         </div>
       </div>
       <span>{{ contact.title }}</span>
-      <a v-if="contact.icon === 'phone'" :href="`tel:${contact.value.replace(/[^0-9]/g, '')}`">{{ contact.value }}</a>
-      <a v-else-if="contact.icon === 'email'" :href="`mailto:${contact.value}`">{{ contact.value }}</a>
+      <a class="link-hover" v-if="contact.icon === 'phone'" :href="`tel:${contact.value.replace(/[^0-9]/g, '')}`">{{ contact.value }}</a>
+      <a class="link-hover" v-else-if="contact.icon === 'email'" :href="`mailto:${contact.value}`">{{ contact.value }}</a>
       <span v-else>{{ contact.value }}</span>
     </li>
   </ul>
@@ -73,6 +73,14 @@
       img {
         height: auto;
         max-width: 100%;
+      }
+    }
+  }
+  @media(max-width: $tablet_size) {
+    .item {
+      a, span {
+        font-size: 21px;
+        line-height: 26px;
       }
     }
   }

@@ -143,4 +143,7 @@
     max-height: 100vh;
     padding: 24px 0 40px 52px;
   }
+  @media(max-width: $mobile_size) {
+
+  }
 </style>

@@ -102,4 +102,34 @@ export default {
     margin-top: 14px;
     min-width: 212px;
   }
+  @media(max-width: $mobile_size) {
+    .items {
+      grid-template-columns: repeat(1, 290px);
+      grid-column-gap: 0;
+      grid-row-gap: 40px;
+      justify-content: center;
+    }
+    .icon {
+      height: 100px;
+      .img {
+        height: 100px;
+      }
+    }
+    .title {
+      margin-top: 12px;
+      span {
+        font-size: 16px;
+        line-height: 19px;
+      }
+    }
+    .description {
+      span {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+    .link {
+      margin-top: 40px;
+    }
+  }
 </style>

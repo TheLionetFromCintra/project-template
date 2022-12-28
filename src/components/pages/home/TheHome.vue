@@ -51,7 +51,7 @@
     </base-wrapper>
   </div>
 
-  <base-wrapper class="contacts observed" title="Контактная информация">
+  <base-wrapper class="contacts observed" title="Контактная информация" v-if="isContactsActive">
     <template #default>
       <contacts-list></contacts-list>
     </template>
@@ -89,6 +89,11 @@ export default {
     MainBlock,
     StatList,
   },
+  data() {
+    return {
+      isContactsActive: true,
+    };
+  },
   methods: {
     setObserver() {
       const allSections = document.querySelectorAll('.observed');
@@ -116,6 +121,11 @@ export default {
   mounted() {
     this.setObserver();
   },
+  computed: {
+    windowWidth() {
+      return this.$store.getters["app/windowWidth"];
+    }
+  }
 };
 </script>
 
@@ -172,7 +182,7 @@ export default {
     background: #EFF3F9 url('@/assets/images/background/help-bg.svg') repeat 90% 1300px;
   }
   .bg--main {
-    background-color: #EFF3F9;
+    background: linear-gradient(107.59deg, #F9F9FB 3.14%, #F3F4F6 51.42%, #EEF0F2 58.77%, #E0E7EA 96.01%);
     position: relative;
     z-index: 10;
     &::before {
@@ -181,6 +191,30 @@ export default {
       bottom: -6px;
       position: absolute;
       z-index: -1;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .steps {
+      margin-top: 52px;
+    }
+    .questions, .ways {
+      margin-top: 72px;
+      padding-bottom: 0;
+    }
+    .bg--help, .bg--about {
+      overflow: visible;
+      margin-top: 72px;
+      background: transparent;
+    }
+    .contacts, .ways .text {
+      display: none;
+    }
+    .bg--main {
+      &::before {
+        content: url("@/assets/images/background/main-bg-mob.png");
+        z-index: 1;
+        right: -5px;
+      }
     }
   }
 </style>

@@ -22,6 +22,9 @@
   .list {
     max-width: 896px;
     margin: 0 auto;
+    li + li {
+      margin-left: 24px;
+    }
   }
   .img {
     max-width: 230px;
@@ -29,6 +32,27 @@
     img {
       height: auto;
       max-width: 100%;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .list {
+      justify-content: center !important;
+      li:last-child {
+        display: none;
+      }
+      .li + li {
+        margin-left: 20px;
+      }
+      li:nth-child(3) {
+        img {
+          height: 100%;
+          max-width: none;
+        }
+      }
+    }
+    .img {
+      max-width: 58px;
+      height: 22px;
     }
   }
 </style>
