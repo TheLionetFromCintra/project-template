@@ -49,10 +49,10 @@
         calculator: 'app/calculator',
       }),
       trueCountValue() {
-        return JSON.parse(Cookies.get('term')).count || this.modelValue.count;
+        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).count : this.modelValue.count;
       },
       trueTypeValue() {
-        return JSON.parse(Cookies.get('term')).type || this.modelValue.type;
+        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).type : this.modelValue.type;
       },
       filteredLoanDays: {
         get() {

@@ -46,10 +46,10 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
     },
     computed: {
       trueCountValue() {
-        return JSON.parse(Cookies.get('term')).count || this.days.count;
+        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).count : this.days.count;
       },
       trueTypeValue() {
-        return JSON.parse(Cookies.get('term')).type || this.days.type;
+        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).type : this.days.type;
       },
       loanDaysString() {
         if (this.days.type === 'days') {

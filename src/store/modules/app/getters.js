@@ -5,7 +5,4 @@ export default {
             amount
         }
     },
-    windowWidth(state) {
-        return state.windowWidth;
-    }
 };

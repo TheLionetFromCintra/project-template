@@ -1,15 +1,15 @@
 <template>
-  <ul class="items justify-content-between" v-if="windowWidth > 768">
+  <ul class="items justify-content-between" v-if="!isMobile">
     <li class="item d-flex flex-column align-items-center justify-content-between" v-for="stat in stats" :key="stat.title">
       <h4>{{ stat.title }}</h4>
       <span>{{ stat.description }}</span>
     </li>
   </ul>
-  <div class="wrapper d-flex align-items-center justify-content-between" v-if="windowWidth > 768">
+  <div class="wrapper d-flex align-items-center justify-content-between" v-if="!isMobile">
     <h5 class="label">Поможем вам получить деньги в течение 10 минут</h5>
     <base-button link mode="green" to="/primary" class="link">Оформить заявку</base-button>
   </div>
-  <div class="mobile" v-if="windowWidth <= 768">
+  <div class="mobile" v-if="isMobile">
     <div class="helper">
       <h4>Отправьте заявку</h4>
       <p>И получите список компаний за 15 минут</p>
@@ -27,7 +27,10 @@
 </template>
 
 <script>
+  import mobileMixin from "@/mixins/mobile";
+
   export default {
+    mixins: [mobileMixin],
     data() {
       return {
         stats: [
@@ -46,11 +49,6 @@
         ],
       };
     },
-    computed: {
-      windowWidth() {
-        return this.$store.getters['app/windowWidth'];
-      }
-    }
   }
 </script>
 
@@ -120,8 +118,9 @@
   @media (max-width: $mobile_size) {
     .mobile {
       width: 100%;
-      max-width: 284px;
+      max-width: 400px;
       margin: 0 auto;
+      padding: 0 28px;
       .helper {
         padding: 20px 13px;
         background: #FAFAFA;
@@ -150,7 +149,9 @@
       .link {
         margin: 0;
         padding: 12px;
-        min-width: 230px;
+        min-width: initial;
+        width: 100%;
+        max-width: 230px;
       }
       .safe {
         margin-top: 42px;

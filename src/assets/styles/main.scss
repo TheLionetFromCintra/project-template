@@ -69,7 +69,6 @@ body {
 }
 .swiper-wrapper {
   display: flex;
-  //justify-content: center;
   height: 100%;
 }
 .vue-slider-rail, .vue-slider-process {
@@ -94,6 +93,42 @@ body {
   display: none !important;
 }
 
+.reviews .swiper-slide:nth-child(even) .swiper-slide-shadow {
+  background: linear-gradient(0deg, #E0EAFF, #E0EAFF), #FAFAFA;
+  box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
+}
+
+.reviews .swiper-slide:nth-child(odd) .swiper-slide-shadow {
+  background: linear-gradient(0deg, #C3D0EE, #C3D0EE), #FAFAFA;
+  box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
+}
+.reviews .swiper-pagination-bullet {
+  width: 14px;
+  height: 14px;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
+}
+.reviews .swiper-pagination-bullet-active {
+  background: #2241D4;
+}
+.reviews .swiper-button-next,
+.reviews .swiper-button-prev {
+  color: #2241D4;
+  height: 34px;
+}
+.reviews .swiper-button-next::after,
+.reviews .swiper-button-prev::after {
+  font-size: 30px;
+}
+.reviews .swiper-button-next {
+  right: -150px;
+}
+.reviews .swiper-button-prev {
+  left: -150px;
+}
+.reviews .swiper-horizontal>.swiper-pagination-bullets {
+  bottom: -60px;
+}
 @media(max-width: 1200px) {
   .container {
     max-width: 100%;
@@ -102,6 +137,12 @@ body {
   .subtitle {
     font-size: 40px;
     line-height: 44px;
+  }
+  .reviews .swiper-button-next {
+    right: -100px;
+  }
+  .reviews .swiper-button-prev {
+    left: -100px;
   }
 }
 
@@ -114,5 +155,24 @@ body {
   .container {
     max-width: 100%;
     padding: 0 15px;
+  }
+  .reviews .swiper-horizontal>.swiper-pagination-bullets {
+    bottom: -40px;
+  }
+  .reviews .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+  }
+  .reviews .swiper-pagination-bullet-active {
+    background: #808080;
+  }
+  .reviews .swiper-button-next::after,
+  .reviews .swiper-button-prev::after {
+    font-size: 20px;
+  }
+  .reviews .swiper-button-next,
+  .reviews .swiper-button-prev,
+  .reviews .swiper-slide .swiper-slide-shadow {
+    display: none;
   }
 }

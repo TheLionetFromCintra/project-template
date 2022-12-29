@@ -4,6 +4,7 @@
         class="mySwiper"
         :speed="500"
         :modules="modules"
+        :grabCursor="true"
         :effect="'cards'"
         :navigation="true"
         :pagination="{
@@ -41,37 +42,52 @@
   import "swiper/css/pagination";
   import "swiper/css/effect-cards";
 
+  import mobileMixin from "@/mixins/mobile";
+
   export default {
     components: {
       Swiper,
       SwiperSlide
     },
+    mixins: [mobileMixin],
     data() {
       return {
         reviews: [
           {
-            id: 666,
+            id: this.getRandomInt(),
             name: 'Анна',
             rate: 5,
             description: 'Lorem ipsum dolor sit amet consectetur. Non orci elit quis urna dictum eleifend. Dictum facilisi egestas feugiat pellentesque ultrices id purus urna.',
             photo: 'anna',
           },
           {
-            id: 667,
+            id: this.getRandomInt(),
             name: 'Жанна',
             rate: 3,
             description: 'Lorem ipsum dolor sit amet consectetur. Non orci elit quis urna dictum eleifend.',
             photo: 'anna',
           },
           {
-            id: 668,
+            id: this.getRandomInt(),
             name: 'Инна',
+            rate: 4,
+            description: '123213Lorem ipsum dolor sit amet consectetur. Non orci elit quis urna dictum eleifend. Dictum facilisi egestas feugiat pellentesque ultrices id purus urna.',
+            photo: 'anna',
+          },
+          {
+            id: this.getRandomInt(),
+            name: 'Инга',
             rate: 4,
             description: '123213Lorem ipsum dolor sit amet consectetur. Non orci elit quis urna dictum eleifend. Dictum facilisi egestas feugiat pellentesque ultrices id purus urna.',
             photo: 'anna',
           },
         ],
       };
+    },
+    methods: {
+      getRandomInt() {
+        return Math.floor(Math.random() * 100000000);
+      }
     },
     setup() {
       return {
@@ -82,35 +98,32 @@
 </script>
 
 <style lang="scss" scoped>
-  .reviews {
-    .swiper-slide {
-      width: 592px !important;
-      height: 274px;
-    }
+  .swiper {
+    width: 592px;
+    height: 320px;
+  }
+  .swiper-slide {
+    border-radius: 10px;
+    max-height: 274px;
+    box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
   }
   .list {
     position: relative;
-    border-radius: 8px;
-    perspective: 1px;
-    //overflow: hidden;
     width: 100%;
-    height: 420px;
+    height: 380px;
     margin: 0 auto;
   }
   .slide {
-    width: 592px;
-    //height: 274px;
-    height: 320px;
     background-color: #FAFAFA;
-    box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
-    border-radius: 10px;
     padding: 20px 24px;
+    height: 234px;
   }
   .img {
     max-width: 201px;
     height: 201px;
     border-radius: 10px;
     margin-right: 27px;
+    flex-shrink: 0;
   }
   .name, .description {
     font-size: 16px;
@@ -135,6 +148,52 @@
     }
     .icon + .icon {
       margin-left: 6px;
+    }
+  }
+  @media(max-width: $tablet_size) {
+    .swiper {
+      width: 500px;
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .swiper {
+      width: 320px;
+      height: 180px;
+      @media(max-width: 374px) {
+        width: 290px;
+      }
+    }
+    .swiper-slide {
+      max-height: 180px;
+      box-shadow: 0px 32px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 15px 30px rgba(180, 185, 204, 0.08), 0px 0px 0px rgba(135, 135, 135, 0.42);
+    }
+    .list {
+      height: 310px;
+    }
+    .slide {
+      padding: 20px 14px 20px 20px;
+      height: 140px;
+    }
+    .img {
+      max-width: 100px;
+      height: 100px;
+      margin-right: 22px;
+    }
+    .name {
+      margin-bottom: 8px;
+    }
+    .description {
+      font-size: 12px;
+      line-height: 18px;
+      max-width: 100%;
+      -webkit-line-clamp: 4;
+    }
+    .rate {
+      margin-bottom: 8px;
+      .icon {
+        max-width: 12px;
+        height: 12px;
+      }
     }
   }
 </style>

@@ -104,10 +104,14 @@ export default {
   }
   @media(max-width: $mobile_size) {
     .items {
-      grid-template-columns: repeat(1, 290px);
+      grid-template-columns: repeat(1, 100%);
       grid-column-gap: 0;
       grid-row-gap: 40px;
-      justify-content: center;
+      padding: 0 28px;
+    }
+    .item {
+      max-width: 400px;
+      margin: 0 auto;
     }
     .icon {
       height: 100px;

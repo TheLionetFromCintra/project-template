@@ -11,7 +11,6 @@ export default {
                 count: 10
             },
             amount: 10000,
-            windowWidth: window.innerWidth,
         };
     },
     mutations,

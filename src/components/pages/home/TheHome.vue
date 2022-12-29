@@ -51,7 +51,7 @@
     </base-wrapper>
   </div>
 
-  <base-wrapper class="contacts observed" title="Контактная информация" v-if="isContactsActive">
+  <base-wrapper class="contacts observed" title="Контактная информация" v-if="!isMobile">
     <template #default>
       <contacts-list></contacts-list>
     </template>
@@ -73,7 +73,7 @@ import ContactsList from "@/components/pages/home/components/ContactsList";
 import TheFooter from "@/components/layouts/TheFooter";
 import QuestionsList from "@/components/pages/home/components/questions/QuestionsList";
 import ReviewsList from "@/components/pages/home/components/ReviewsList";
-
+import mobileMixin from "@/mixins/mobile";
 
 export default {
   components: {
@@ -89,11 +89,7 @@ export default {
     MainBlock,
     StatList,
   },
-  data() {
-    return {
-      isContactsActive: true,
-    };
-  },
+  mixins: [mobileMixin],
   methods: {
     setObserver() {
       const allSections = document.querySelectorAll('.observed');
@@ -121,11 +117,6 @@ export default {
   mounted() {
     this.setObserver();
   },
-  computed: {
-    windowWidth() {
-      return this.$store.getters["app/windowWidth"];
-    }
-  }
 };
 </script>
 
@@ -193,20 +184,33 @@ export default {
       z-index: -1;
     }
   }
+  @media(max-width: $tablet_size) {
+    .reviews {
+      padding-bottom: 98px;
+    }
+  }
   @media(max-width: $mobile_size) {
+    .observed--hidden {
+      opacity: 0;
+      transform: translateY(6rem);
+    }
     .steps {
       margin-top: 52px;
     }
-    .questions, .ways {
+    .ways, .reviews {
       margin-top: 72px;
       padding-bottom: 0;
+    }
+    .questions {
+      margin-top: 7px;
+      padding: 0;
     }
     .bg--help, .bg--about {
       overflow: visible;
       margin-top: 72px;
       background: transparent;
     }
-    .contacts, .ways .text {
+    .ways .text {
       display: none;
     }
     .bg--main {

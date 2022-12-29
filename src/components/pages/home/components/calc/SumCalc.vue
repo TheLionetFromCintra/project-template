@@ -97,5 +97,8 @@ const VueSlider = defineAsyncComponent(() => import('vue-slider-component'));
     .range {
       display: none !important;
     }
+    .sum {
+      margin-bottom: 16px;
+    }
   }
 </style>

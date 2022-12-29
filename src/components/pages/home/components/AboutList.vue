@@ -101,14 +101,16 @@ export default {
   }
   @media(max-width: $mobile_size) {
     .items {
-      grid-template-columns: repeat(1, 290px);
+      grid-template-columns: repeat(1, 100%);
       grid-column-gap: 0;
       grid-row-gap: 18px;
-      justify-content: center;
+      padding: 0 28px;
     }
     .item {
       min-height: 145px;
       padding: 20px;
+      max-width: 400px;
+      margin: 0 auto;
 
       .top {
         min-height: 55px;

@@ -73,3 +73,12 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+@media(max-width: $mobile_size) {
+  .items {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+</style>

@@ -9,7 +9,7 @@
         name="accordion"
         mode="out-in"
     >
-      <div class="content" v-html="question.description" :class="{test: question.active}"></div>
+      <div class="content" v-html="question.description" :class="{active: question.active}"></div>
     </transition>
   </div>
 </template>
@@ -139,11 +139,70 @@
       }
     }
   }
-  .content.test {
+  .content.active {
     max-height: 100vh;
     padding: 24px 0 40px 52px;
   }
+  @media(max-width: $tablet_size) {
+    .title {
+      font-size: 28px;
+      line-height: 34px;
+    }
+    .content {
+      font-size: 20px;
+      line-height: 24px;
+    }
+    .button {
+      width: 62px;
+      height: 62px;
+    }
+  }
   @media(max-width: $mobile_size) {
+    .item {
+      margin: 0 28px;
+    }
+    .top {
+      padding: 12px 0;
+    }
+    .title {
+      font-size: 14px;
+      line-height: 18px;
+    }
+    .content {
+      padding: 0 42px;
+      margin-left: 14px;
+      font-size: 12px;
+      line-height: 18px;
 
+      &::v-deep ol {
+        margin: 16px 0 0 0;
+        li {
+          position: relative;
+          &::before {
+            top: 2px;
+            left: -32px;
+            width: 14px;
+            height: 14px;
+            font-size: 12px;
+          }
+        }
+        li + li {
+          margin-top: 16px;
+        }
+      }
+    }
+    .content.active {
+      padding: 12px 0 24px 32px;
+    }
+    .button {
+      margin-left: 16px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      &::before, &::after {
+        height: 4px;
+        width: 16px;
+      }
+    }
   }
 </style>

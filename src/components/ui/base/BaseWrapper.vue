@@ -82,11 +82,14 @@ h2 {
 }
 @media(max-width: $mobile_size) {
   .ways {
+    .container {
+      padding: 0 43px;
+    }
     .subtitle {
       margin-bottom: 36px;
     }
     .wrapper {
-      max-width: 342px;
+      max-width: 400px;
       padding: 22px 26px 34px 26px;
     }
   }
@@ -101,6 +104,21 @@ h2 {
   .questions {
     .subtitle {
       margin-bottom: 40px;
+    }
+  }
+  .reviews {
+    .subtitle {
+      margin-bottom: 26px;
+    }
+    .container {
+      padding: 0;
+    }
+    .wrapper {
+      overflow-x: hidden;
+      padding: 0 15px;
+      //display: flex;
+      //flex-direction: column;
+      //align-items: center;
     }
   }
   .help, .steps {

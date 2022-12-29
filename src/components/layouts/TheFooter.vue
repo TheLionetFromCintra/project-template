@@ -91,6 +91,9 @@ export default {}
   @media(max-width: $mobile_size) {
     .footer {
       margin-top: 72px;
+      .container {
+        padding: 0 24px;
+      }
     }
     .description {
       padding: 40px 0 28px 0;
