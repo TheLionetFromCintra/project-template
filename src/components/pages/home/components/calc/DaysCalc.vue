@@ -2,7 +2,7 @@
   <div class="days">
     <vue-slider
         v-model="filteredLoanDays"
-        :dotSize="12"
+        :dot-size="12"
         :min="1"
         :max="65"
         :interval="1"

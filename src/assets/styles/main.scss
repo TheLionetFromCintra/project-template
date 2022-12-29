@@ -41,11 +41,16 @@ body {
   text-overflow: ellipsis;
 }
 
-.container {
+.container,
+.sub-container {
   width: 100%;
   max-width: 1316px;
   padding: 0 40px;
   margin: 0 auto;
+}
+
+.sub-container {
+  max-width: 1034px;
 }
 
 .subtitle {
@@ -55,7 +60,10 @@ body {
   text-align: center;
   letter-spacing: 0.07em;
 }
-
+.subtitle--poll {
+  text-align: left;
+  margin-bottom: 48px;
+}
 .link-hover {
   padding-bottom: 2px;
   border-bottom: 1px solid transparent;

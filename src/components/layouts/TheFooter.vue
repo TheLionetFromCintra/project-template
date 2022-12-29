@@ -65,11 +65,6 @@ export default {}
   .logo {
     max-width: 122px;
     height: 74px;
-    img {
-      height: auto;
-      max-width: 100%;
-      width: 100%;
-    }
   }
   .wrapper {
     margin-left: 76px;
@@ -112,7 +107,7 @@ export default {}
       padding: 52px 0 108px 0;
     }
     .logo {
-      max-width: 72px;
+      max-width: 102px;
       height: 37px;
       order: 1;
     }

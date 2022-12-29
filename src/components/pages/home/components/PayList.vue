@@ -2,7 +2,7 @@
   <ul class="list d-flex align-items-center justify-content-between">
     <li v-for="pay in pays" :key="pay">
       <div class="img img-wrapper d-flex align-items-center justify-content-center">
-        <img :src="require(`@/assets/images/icons/pays/pay-${pay}.svg`)">
+        <img :src="require(`@/assets/images/icons/pays/pay-${pay}.svg`)" :alt="pay">
       </div>
     </li>
   </ul>

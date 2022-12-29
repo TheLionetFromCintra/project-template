@@ -2,7 +2,7 @@
   <div class="sum">
     <vue-slider
         v-model="loanSum"
-        :dotSize="12"
+        :dot-size="12"
         :min="config.min"
         :max="config.max"
         :interval="config.step"

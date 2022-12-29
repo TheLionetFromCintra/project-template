@@ -7,7 +7,7 @@
               <span>Сумма</span>
               <span>{{ loanPriceString }} ₽</span>
             </div>
-            <sum-calc v-model="sum" :showRangeInfo="3"></sum-calc>
+            <sum-calc v-model="sum" :show-range-info="3"></sum-calc>
             <div class="mobile d-flex align-items-center justify-content-between">
                 <span>Срок</span>
                 <span>{{ days.count }} {{ loanDaysString }}</span>
