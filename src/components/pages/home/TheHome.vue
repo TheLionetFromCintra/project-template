@@ -197,13 +197,9 @@ export default {
     .steps {
       margin-top: 52px;
     }
-    .ways, .reviews {
+    .questions, .ways, .reviews {
       margin-top: 72px;
       padding-bottom: 0;
-    }
-    .questions {
-      margin-top: 7px;
-      padding: 0;
     }
     .bg--help, .bg--about {
       overflow: visible;

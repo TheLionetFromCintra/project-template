@@ -82,11 +82,19 @@
       max-width: 290px;
       margin: 0 auto;
     }
+
     .step {
       .description {
         font-size: 16px;
         line-height: 24px;
         max-width: 230px;
+      }
+      .num {
+        div {
+          span {
+            margin: 0 0 0 5px;
+          }
+        }
       }
     }
     .step + .step {

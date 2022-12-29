@@ -51,6 +51,10 @@
 .logo {
   max-width: 50px;
   height: 32px;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 .phone {
   margin-left: 117px;
