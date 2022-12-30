@@ -6,7 +6,7 @@
     <div class="progress-bar">
       <div class="bar" :style="`width: ${progressBar}%`"></div>
     </div>
-    <div class="wrapper">
+    <div class="wrapper d-flex align-items-center justify-content-center">
       <slot></slot>
     </div>
   </div>
@@ -47,6 +47,7 @@
     border-radius: 10px;
     min-height: 354px;
     overflow: hidden;
+    padding: 42px 0 48px 0;
   }
   .progress-bar {
     position: absolute;

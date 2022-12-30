@@ -91,6 +91,9 @@
         }
       }
     },
+    created() {
+      this.$store.dispatch('app/setCalculator', { term: this.modelValue });
+    }
   }
 </script>
 

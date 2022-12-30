@@ -81,4 +81,10 @@ a.grey, button.grey {
     filter: drop-shadow(0px 0px 12px rgba(25, 25, 25, 0.69));
   }
 }
+a.disabled, button.disabled {
+  pointer-events: none;
+  border: 1px solid #8F8F8F;
+  background-color: transparent;
+  color: #8F8F8F;
+}
 </style>
