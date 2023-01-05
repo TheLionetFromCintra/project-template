@@ -1,3 +1,109 @@
 <template>
-  input
+  <div class="box">
+    <label>
+      <span>{{ label }}</span>
+      <div class="wrapper">
+        <input :type="inputType" :placeholder="placeholder">
+        <div class="success d-flex align-items-center justify-content-center">
+          <div class="icon img-wrapper d-flex align-items-center justify-content-center">
+            <img src="@/assets/images/icons/form/success.svg" alt="success icon">
+          </div>
+        </div>
+      </div>
+      <small class="err-message" v-if="errorMessage && false">{{ errorMessage }}</small>
+    </label>
+  </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      inputType: {
+        type: String,
+        required: false,
+        default: 'text'
+      },
+      label: {
+        type: String,
+        required: true,
+      },
+      placeholder: {
+        type: String,
+        required: false,
+      },
+      errorMessage: {
+        type: String,
+        required: false,
+      },
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+.box {
+  label {
+    width: 100%;
+  }
+  width: 100%;
+  span {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  span, input {
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.07em;
+  }
+  input {
+    font-weight: 600;
+    background: $primary-white;
+    box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 12px 30px rgba(180, 185, 204, 0.26), 0px 0px 0px rgba(135, 135, 135, 0.42);
+    border-radius: 10px;
+    padding: 12px 46px 12px 22px;
+    border: 1px solid transparent;
+    outline: none;
+    width: 100%;
+    color: inherit;
+    font-family: inherit;
+    transition: border-color 0.3s linear;
+
+    &::placeholder {
+      color: $primary-grey;
+      font-weight: 500;
+    }
+    &:focus {
+      border-color: $primary-blue;
+    }
+    &.success {
+      border-color: $primary-green;
+    }
+  }
+  .success {
+    opacity: 0;
+    transition: opacity 0.3s linear;
+
+    width: 16px;
+    height: 16px;
+    background-color: $primary-green;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    &.active {
+      opacity: 1;
+    }
+    .icon {
+      max-width: 8px;
+      height: 6px;
+    }
+  }
+  .wrapper {
+    position: relative;
+    &.error input {
+      border-color: #EB5757;
+    }
+  }
+}
+</style>

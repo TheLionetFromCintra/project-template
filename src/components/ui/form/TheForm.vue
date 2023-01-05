@@ -9,3 +9,10 @@
     <slot name="default"></slot>
   </form>
 </template>
+
+
+<style lang="scss" scoped>
+  .top {
+    width: 100%;
+  }
+</style>

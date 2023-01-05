@@ -13,7 +13,7 @@
                  type="text"
                  v-model.trim="calcSum"
                  ref="sum"
-                 @blur="test"
+                 @keyup="filterNumInput"
           >
           <span class="sign">₽</span>
         </div>
@@ -30,7 +30,7 @@
                  type="text"
                  v-model.trim="calcDays"
                  ref="days"
-                 @blur="test"
+                 @keyup="filterNumInput"
           >
           {{ loanDaysString }}
         </div>
@@ -76,6 +76,12 @@
       },
     },
     methods: {
+      filterNumInput(e) {
+        if (e.keyCode < 47 || e.keyCode > 57) {
+          e.preventDefault();
+        }
+        this.setInputWidth(e.target);
+      },
       setInputWidth(input, num) {
         if(num > 0 && input.value.length > 1) {
           num = 1;
@@ -91,6 +97,7 @@
       saveResult() {
         this.activeInput = false;
         console.log(this.calcSum)
+
         // this.$store.dispatch('app/setCalculator', { amount: +this.calcSum.split(' ').join(''), term: {
         //
         //   } });
@@ -133,8 +140,8 @@
       background: transparent;
       width: initial;
       padding: 0 0 2px 0;
-      border-bottom: 1px solid transparent;
       max-width: 90px;
+      border-bottom: 1px solid transparent;
       pointer-events: none;
       transition: border-color 0.3s linear;
       &.active {

@@ -7,12 +7,27 @@
       <poll-step-wrapper :current-step="currentStep" :max-step="maxStep">
         <the-form class="primary-form">
           <template #inputs>
-            <div class="inputs d-flex align-items-center">
-              <the-input></the-input>
-              <the-input></the-input>
-            </div>
+            <fieldset class="inputs d-flex align-items-start">
+              <the-input
+                  input-type="phone"
+                  label="Номер телефона:"
+                  placeholder="+7 911 111 11 11"
+                  error-message="Неверный формат"
+              >
+              </the-input>
+              <the-input
+                  input-type="email"
+                  label="Электронная почта:"
+                  placeholder="для получения документов"
+              >
+              </the-input>
+            </fieldset>
             <div class="checkbox-wrapper">
-              <the-checkbox></the-checkbox>
+              <the-checkbox
+                :desc="checkboxText"
+                error-message="Необходимо согласиться с условиями"
+              >
+              </the-checkbox>
             </div>
           </template>
           <template #default>
@@ -40,6 +55,7 @@
       return {
         currentStep: 1,
         maxStep: 3,
+        checkboxText: '<b>Совершая действия на сайте, вы даете свое</b> Согласие на обработку персональных данных, Согласие на получение рекламных материалов и Защита от непредвиденных ситуаций. Вы ознакомились и соглашаетесь с Договором публичной оферты, Политикой Конфиденциальности и тарифами сервиса.'
       };
     }
   }
@@ -61,5 +77,13 @@
     padding: 13px;
     min-width: 232px;
     margin-top: 38px;
+  }
+  .inputs {
+    .box {
+      max-width: 300px;
+    }
+    .box + .box {
+      margin-left: 24px;
+    }
   }
 </style>
