@@ -1,6 +1,6 @@
 <template>
   <div class="poll-title">
-    {{ `${currentStep} из ${maxStep}` }} <span>Заполните форму</span>
+    {{ `${currentStep} из ${maxStep}` }} <span>{{ title }}</span>
   </div>
   <div class="poll-step">
     <div class="progress-bar">
@@ -22,6 +22,10 @@
       maxStep: {
         type: Number,
         required: true,
+      },
+      title: {
+        type: String,
+        required: true
       }
     },
     data() {

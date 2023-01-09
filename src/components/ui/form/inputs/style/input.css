@@ -1,0 +1,66 @@
+.box {
+  width: 100%;
+}
+.box label {
+  width: 100%;
+}
+.box span {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.box span, .box input {
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.07em;
+}
+.box input {
+  font-weight: 600;
+  background: #FEFEFF;
+  box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 12px 30px rgba(180, 185, 204, 0.26), 0px 0px 0px rgba(135, 135, 135, 0.42);
+  border-radius: 10px;
+  padding: 12px 46px 12px 22px;
+  border: 1px solid transparent;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font-family: inherit;
+  transition: border-color 0.3s linear;
+}
+.box input::placeholder {
+  color: #8F8F8F;
+  font-weight: 500;
+}
+.box input:focus {
+  border-color: #2241D4;
+}
+.box input.success {
+  border-color: #23B562;
+}
+.box .success {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  width: 16px;
+  height: 16px;
+  background-color: #23B562;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.box .success.active {
+  opacity: 1;
+}
+.box .success .icon {
+  max-width: 8px;
+  height: 6px;
+}
+.box .wrapper {
+  position: relative;
+}
+.box .wrapper.error input {
+  border-color: #EB5757;
+}
+
+/*# sourceMappingURL=input.css.map */

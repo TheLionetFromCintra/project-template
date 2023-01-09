@@ -49,7 +49,7 @@
   .description {
     padding: 58px 0;
     background-color: #EFF3F9;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 23px;
     letter-spacing: 0.07em;
     &::v-deep p + p {
@@ -83,6 +83,10 @@
   @media(max-width: $tablet_size) {
     .bottom {
       padding: 64px 0;
+    }
+    .description {
+      font-size: 16px;
+      line-height: 19px;
     }
   }
   @media(max-width: $mobile_size) {

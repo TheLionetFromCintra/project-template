@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="checkbox">
     <label class="d-flex align-items-start justify-content-center">
       <input type="checkbox">
       <div class="description" v-html="desc">
