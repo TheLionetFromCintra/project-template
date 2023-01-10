@@ -24,6 +24,7 @@
 <script>
   import './style/input.scss';
   import inputCheckMixin from '@/mixins/inputCheck';
+  import luhn from '@/helpers/card/luhn';
 
   export default {
     mixins: [inputCheckMixin],
@@ -73,15 +74,37 @@
     methods: {
       initInput(e) {
         this.forbidType(e, this.inputType);
+        //set masks in general
         if(this.mask) {
           e.target.value = this.setMask(e.target.value, this.mask);
         }
-        if(this.dateType && this.mask) {
-          e.target.value = this.checkDate(this.setMask(e.target.value, this.mask));
+        //set masks on dates
+        if(this.dateType) {
+          e.target.value = this.checkDate(e.target.value);
         }
+        //autofocus and check card number
         if(+e.target.value.length === +this.length && this.focusNext) {
-          document.querySelector(`.${this.focusNext}`).focus();
+          if(this.className === 'cardNumber' && luhn(e.target.value)) {
+            document.querySelector(`.${this.focusNext}`).focus();
+          } else {
+            // error
+          }
+          if(this.className !== 'cardNumber') {
+            document.querySelector(`.${this.focusNext}`).focus();
+          }
         }
+        //check card date
+        if(this.className === 'cardDate') {
+          if (!e.target.value.length)
+            return;
+
+          const [month] = e.target.value.split('/');
+
+          if (month > 12 || (month.length === 2 && +month === 0)) {
+            e.target.value = '12';
+          }
+        }
+
       }
     },
     mounted() {
@@ -94,7 +117,7 @@
 
 <style lang="scss" scoped>
   .box input {
-    padding: 12px 18px;
+    padding: 12px 16px;
   }
   .personal .box input {
     max-width: 130px;

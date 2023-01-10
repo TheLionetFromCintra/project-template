@@ -1,54 +1,56 @@
 <template>
   <div class="result">
-    <div class="wrapper d-flex align-items-center">
-      <div class="item d-flex align-items-center">
-        <div class="icon d-flex align-items-center justify-content-center">
-          <div class="img img-wrapper d-flex align-items-center justify-content-center">
-            <img src="@/assets/images/icons/calc/card.svg" alt="card icon">
+    <div class="helper">
+      <div class="wrapper d-flex align-items-center">
+        <div class="item d-flex align-items-center">
+          <div class="icon d-flex align-items-center justify-content-center">
+            <div class="img img-wrapper d-flex align-items-center justify-content-center">
+              <img src="@/assets/images/icons/calc/card.svg" alt="card icon">
+            </div>
+          </div>
+          <div class="content">
+            <span>Сумма:</span>
+            <input :class="{active: activeInput}"
+                   type="text"
+                   v-model.trim="calcSum"
+                   ref="sum"
+                   @keyup="filterNumInput"
+            >
+            <span class="sign">₽</span>
           </div>
         </div>
-        <div class="content">
-          <span>Сумма:</span>
-          <input :class="{active: activeInput}"
-                 type="text"
-                 v-model.trim="calcSum"
-                 ref="sum"
-                 @keyup="filterNumInput"
-          >
-          <span class="sign">₽</span>
-        </div>
-      </div>
-      <div class="item d-flex align-items-center">
-        <div class="icon d-flex align-items-center justify-content-center">
-          <div class="img img-wrapper d-flex align-items-center justify-content-center">
-            <img src="@/assets/images/icons/calc/calendar.svg" alt="calendar icon">
+        <div class="item d-flex align-items-center">
+          <div class="icon d-flex align-items-center justify-content-center">
+            <div class="img img-wrapper d-flex align-items-center justify-content-center">
+              <img src="@/assets/images/icons/calc/calendar.svg" alt="calendar icon">
+            </div>
+          </div>
+          <div class="content">
+            <span>Срок:</span>
+            <input :class="{active: activeInput}"
+                   type="text"
+                   v-model.trim="calcDays"
+                   ref="days"
+                   @keyup="filterNumInput"
+            >
+            {{ loanDaysString }}
           </div>
         </div>
-        <div class="content">
-          <span>Срок:</span>
-          <input :class="{active: activeInput}"
-                 type="text"
-                 v-model.trim="calcDays"
-                 ref="days"
-                 @keyup="filterNumInput"
-          >
-          {{ loanDaysString }}
-        </div>
-      </div>
-      <div class="item d-flex align-items-center">
-        <div class="icon d-flex align-items-center justify-content-center">
-          <div class="img img-wrapper d-flex align-items-center justify-content-center">
-            <img src="@/assets/images/icons/calc/flag.svg" alt="flag icon">
+        <div class="item d-flex align-items-center">
+          <div class="icon d-flex align-items-center justify-content-center">
+            <div class="img img-wrapper d-flex align-items-center justify-content-center">
+              <img src="@/assets/images/icons/calc/flag.svg" alt="flag icon">
+            </div>
+          </div>
+          <div class="content">
+            <span>До:</span>
+            <input type="text" v-model.trim="calcDate" readonly ref="date">
           </div>
         </div>
-        <div class="content">
-          <span>До:</span>
-          <input type="text" v-model.trim="calcDate" readonly ref="date">
-        </div>
       </div>
+      <button class="button" @click="unlockInputs" v-if="!activeInput">Изменить</button>
+      <button class="button" @click="saveResult" v-else>Сохранить</button>
     </div>
-    <button class="button" @click="unlockInputs" v-if="!activeInput">Изменить</button>
-    <button class="button" @click="saveResult" v-else>Сохранить</button>
   </div>
 </template>
 
@@ -166,6 +168,38 @@
     transition: border-color 0.3s linear;
     &:hover {
       border-color: transparent;
+    }
+  }
+  @media(max-width: $mobile-size) {
+    .result {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .item {
+      flex-direction: column;
+    }
+    .item + .item {
+      margin-left: 40px;
+    }
+    .icon {
+      margin: 0 0 5px 0;
+    }
+    .content {
+      span, input {
+        text-align: center;
+        font-size: 13px;
+        line-height: 18px;
+      }
+      input {
+        max-width: 80px;
+      }
+    }
+    .button {
+      margin-top: 18px;
+      font-size: 12px;
+      line-height: 18px;
     }
   }
 </style>

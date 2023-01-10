@@ -212,7 +212,7 @@ export default {
     .bg--main {
       &::before {
         content: url("@/assets/images/background/main-bg-mob.png");
-        z-index: 1;
+        z-index: -1;
         right: -5px;
       }
     }

@@ -36,6 +36,7 @@
                       length="5"
                       mask="##/##"
                       focus-next="cardCVV"
+                      class-name="cardDate"
                   >
                   </the-input>
                 </fieldset>

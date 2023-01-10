@@ -77,4 +77,11 @@
       padding-left: 14px;
     }
   }
+  @media(max-width: $mobile_size) {
+    .poll-step {
+      margin-top: 14px;
+      //margin: 0 -24px;
+      min-height: 486px;
+    }
+  }
 </style>
