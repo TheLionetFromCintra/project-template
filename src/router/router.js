@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import TheHome from "../components/pages/home/TheHome.vue";
 import ThePrimary from "@/components/pages/poll/primary/ThePrimary";
+import PhoneAuth from "@/components/pages/poll/primary/PhoneAuth";
 import TheContact from "@/components/pages/poll/contact/TheContact";
 import TheCard from "@/components/pages/poll/card/TheCard";
 
@@ -12,6 +13,7 @@ const router = createRouter({
     routes: [
         { path: "/", component: TheHome },
         { path: "/primary", component: ThePrimary },
+        { path: "/verificate", component: PhoneAuth },
         { path: "/contact", component: TheContact },
         { path: "/card", component: TheCard },
         // { path: "/coaches", component: CoachesList },

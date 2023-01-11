@@ -14,9 +14,15 @@
                    type="text"
                    v-model.trim="calcSum"
                    ref="sum"
+                   autocomplete="off"
+                   autocapitalize="off"
+                   autocorrect="off"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    @keyup="filterNumInput"
+                   @input="initInput('sum')"
             >
-            <span class="sign">₽</span>
+            <span class="sign">000 ₽</span>
           </div>
         </div>
         <div class="item d-flex align-items-center">
@@ -31,9 +37,15 @@
                    type="text"
                    v-model.trim="calcDays"
                    ref="days"
+                   autocomplete="off"
+                   autocapitalize="off"
+                   autocorrect="off"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    @keyup="filterNumInput"
+                   @input="initInput('days')"
             >
-            {{ loanDaysString }}
+            {{ setLoanDaysString(calcType, calcDays) }}
           </div>
         </div>
         <div class="item d-flex align-items-center">
@@ -59,12 +71,16 @@
   import price from '@/helpers/string/price';
   import term from '@/helpers/string/term';
   import date from '@/helpers/string/date';
+  import inputCheckMixin from '@/mixins/inputCheck';
 
   export default {
+    mixins: [inputCheckMixin],
     data() {
       return {
-        calcSum: price(+Cookies.get('sum')),
-        calcDays: +JSON.parse(Cookies.get('term')).count,
+        calcSum: price(+Cookies.get('sum')).split(' ')[0],
+        calcDays: JSON.parse(Cookies.get('term')).count,
+        initCalcDays: JSON.parse(Cookies.get('term')).count,
+        calcType: JSON.parse(Cookies.get('term')).type,
         calcDate: date(+JSON.parse(Cookies.get('term')).count, JSON.parse(Cookies.get('term')).type),
         activeInput: false,
       };
@@ -78,36 +94,72 @@
       },
     },
     methods: {
-      filterNumInput(e) {
-        if (e.keyCode < 47 || e.keyCode > 57) {
-          e.preventDefault();
+      setLoanDaysString(type, count) {
+        if (type === 'days') {
+          return term(count);
         }
+        return 'недель';
+      },
+      initInput(type) {
+        if(type === 'sum') this.calcSum = this.calcSum.replace(/[A-Za-zА-Яа-яЁё]/g, '');
+        if(type === 'days') this.calcDays = this.calcDays.replace(/[A-Za-zА-Яа-яЁё]/g, '');
+      },
+      filterNumInput(e) {
         this.setInputWidth(e.target);
       },
-      setInputWidth(input, num) {
-        if(num > 0 && input.value.length > 1) {
-          num = 1;
-        } else {
-          num = 0;
+      setInputWidth(input) {
+        let length = null;
+        if(input.value.length !== 0) {
+          length = input.value.length;
         }
-        input.setAttribute('size', input.value.length - num);
+        if(input.value.length === 1 || input.value.length === 0) {
+          length = 2;
+        }
+        input.setAttribute('size', length - 1);
       },
       unlockInputs() {
         this.activeInput = true;
         this.$refs.sum.focus();
       },
+      calcNewDays() {
+        if(+this.calcDays < 32) {
+          this.calcType = 'days';
+        } else {
+          let count = 0;
+
+          const week = +this.calcDays - 32;
+
+          if (week !== 0) {
+            count = Math.floor(week / 8 * 2);
+          }
+          this.calcDays = +('1' + count);
+          this.calcType = 'weeks';
+        }
+        this.calcDate = date(+this.calcDays, this.calcType);
+      },
       saveResult() {
         this.activeInput = false;
-        console.log(this.calcSum)
+        this.setInputWidth(this.$refs.sum);
+        this.setInputWidth(this.$refs.days);
 
-        // this.$store.dispatch('app/setCalculator', { amount: +this.calcSum.split(' ').join(''), term: {
-        //
-        //   } });
+
+        if(+this.calcSum === 0) this.calcSum = price(+Cookies.get('sum')).split(' ')[0];
+
+        if(+this.calcDays === 0) this.calcDays = +JSON.parse(Cookies.get('term')).count;
+
+        //new days
+        if(+this.calcDays !== +this.initCalcDays) this.calcNewDays();
+
+        //new store days
+        this.$store.dispatch('app/setCalculator', { amount: +this.calcSum * 1000, term: {
+           count: this.calcDays,
+           type: this.calcType,
+          } });
       }
     },
     mounted() {
-      this.setInputWidth(this.$refs.sum, 0);
-      this.setInputWidth(this.$refs.days, 1);
+      this.setInputWidth(this.$refs.sum);
+      this.setInputWidth(this.$refs.days);
     }
   }
 </script>
@@ -172,16 +224,25 @@
   }
   @media(max-width: $mobile-size) {
     .result {
+      padding: 0 24px;
       margin-bottom: 24px;
       display: flex;
       align-items: flex-start;
       justify-content: center;
     }
+    .helper {
+      width: 100%;
+      max-width: 552px;
+    }
+    .wrapper {
+      justify-content: space-between;
+    }
     .item {
       flex-direction: column;
+      width: 80px;
     }
     .item + .item {
-      margin-left: 40px;
+      margin-left: 0px;
     }
     .icon {
       margin: 0 0 5px 0;
@@ -200,6 +261,11 @@
       margin-top: 18px;
       font-size: 12px;
       line-height: 18px;
+    }
+  }
+  @media(max-width: 374px) {
+    .item + .item {
+      margin-left: 22px;
     }
   }
 </style>

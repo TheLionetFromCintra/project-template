@@ -7,6 +7,7 @@
       <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Заполните форму">
         <the-form class="primary-form">
           <template #inputs>
+            <h3 class="mob-title">Контактные данные</h3>
             <fieldset class="inputs d-flex align-items-start">
               <phone-input
                   label="Номер телефона:"
@@ -74,6 +75,20 @@
     }
     .box + .box {
       margin-left: 24px;
+    }
+  }
+  @media(max-width: $mobile-size) {
+    .primary-form {
+      max-width: 552px;
+    }
+    .inputs {
+      flex-direction: column;
+      .box {
+        max-width: 100%;
+      }
+      .box + .box {
+        margin: 24px 0 0 0;
+      }
     }
   }
 </style>

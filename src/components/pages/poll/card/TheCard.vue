@@ -56,6 +56,9 @@
           </template>
           <template #default>
             <p class="desc">Для проверки актуальности карты с нее спишется один рубль.</p>
+            <div v-if="showNoCardBlock" class="no-card">
+              <router-link to="/final">У меня нет карты</router-link>
+            </div>
             <base-button class="button-main disabled" mode="green">Продолжить</base-button>
           </template>
         </the-form>
@@ -79,8 +82,14 @@ export default {
     return {
       currentStep: 3,
       maxStep: 3,
+      showNoCardBlock: false,
     };
   },
+  mounted() {
+    setTimeout(() => {
+      this.showNoCardBlock = true;
+    }, 15 * 1000);
+  }
 }
 </script>
 
@@ -156,6 +165,73 @@ export default {
       background-color: $primary-black;
       width: 100%;
       height: 68px;
+    }
+  }
+  .no-card {
+    margin-top: 24px;
+    a {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.07em;
+      color: #0B161F;
+      padding-bottom: 2px;
+      border-bottom: 1px solid #0B161F;
+      transition: border-color 0.3s linear;
+      &:hover, &:active, &:focus, &:focus-within {
+        border-color: transparent;
+      }
+    }
+  }
+  @media(max-width: $mobile-size) {
+    .card-form {
+      max-width: 354px;
+      .desc {
+        font-size: 12px;
+        line-height: 18px;
+        max-width: 230px;
+        margin-top: 24px;
+      }
+    }
+    .card__wrapper {
+      margin-top: 24px;
+    }
+    .card__front, .card__back {
+      width: 79%;
+      height: 153px;
+    }
+    .card__front {
+      padding: 20px 20px 18px 20px;
+      fieldset {
+        margin-top: 8px;
+        .box + .box {
+          margin-left: 13px;
+        }
+        .box:last-child {
+          max-width: 60px;
+        }
+      }
+    }
+    .card__back {
+      margin: -132px 0 0 auto;
+      padding: 0 10px 40px 0;
+      .box {
+        max-width: 48px;
+      }
+      &::before {
+        top: 24px;
+        height: 25px;
+      }
+    }
+    .no-card {
+      a {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+  }
+  @media(max-width: 374px) {
+    .card__front, .card__back {
+      width: 74%;
     }
   }
 </style>

@@ -80,8 +80,20 @@
   @media(max-width: $mobile_size) {
     .poll-step {
       margin-top: 14px;
-      //margin: 0 -24px;
       min-height: 486px;
+      padding: 42px 36px 48px 36px;
+    }
+    .poll-title {
+      padding: 0 24px;
+    }
+  }
+  @media(max-width: 374px) {
+    .poll-step {
+      padding: 42px 24px 48px 24px;
+    }
+    .poll-title {
+      font-size: 13px;
+      line-height: 18px;
     }
   }
 </style>

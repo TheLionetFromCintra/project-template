@@ -1,9 +1,10 @@
 <template>
   <div class="box">
     <label>
-      <span>{{ label }}</span>
+      <span v-if="label">{{ label }}</span>
       <div class="wrapper">
         <input
+            :ref="refName"
             :class="className"
             :type="type"
             :placeholder="placeholder"
@@ -35,7 +36,7 @@
       },
       label: {
         type: String,
-        required: true,
+        required: false,
       },
       length: {
         type: String,
@@ -55,6 +56,10 @@
         required: false,
       },
       placeholder: {
+        type: String,
+        required: false,
+      },
+      refName: {
         type: String,
         required: false,
       },
@@ -142,6 +147,41 @@
     .card__back {
       .box span {
         color: $primary-white;
+      }
+    }
+  }
+  .verif-form {
+    .box {
+      .wrapper {
+        display: flex;
+        justify-content: center;
+      }
+      input {
+        padding: 12px;
+        text-align: center;
+        max-width: 232px;
+      }
+    }
+  }
+  @media(max-width: $mobile_size) {
+    .card-form {
+      .box {
+        input, span {
+          font-size: 12px;
+          line-height: 15px;
+          font-weight: 500;
+        }
+        span {
+          margin-bottom: 6px;
+        }
+        input {
+          max-height: 32px;
+          padding: 10px;
+          border: 1px solid rgba($primary-black, 0.5);
+          &:focus {
+            border: 1px solid rgba($primary-black, 1);
+          }
+        }
       }
     }
   }

@@ -39,7 +39,7 @@ export default {
   }
   @media(max-width: $mobile_size) {
     .header {
-      padding-top: 24px;
+      padding: 24px 24px 0 24px;
       margin-bottom: 24px;
     }
     .logo {

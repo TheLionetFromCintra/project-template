@@ -7,6 +7,7 @@
       <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Заполните анкету">
         <the-form class="contact-form">
           <template #inputs>
+            <h3 class="mob-title">Персональные данные</h3>
             <the-input
               label="ФИО (отчество можно не указывать если нет)"
               placeholder="Иванов Иван Владимирович"
@@ -69,11 +70,11 @@
                 </the-input>
               </fieldset>
             </div>
-            <the-input
+            <the-textarea
                 label="Адрес регистрации:"
                 placeholder="Респ Крым, пгт Массандра, г Ялта, ул Стахановская, д 15 к 2 кв 24"
             >
-            </the-input>
+            </the-textarea>
           </template>
           <template #default>
             <base-button class="button-main disabled" mode="green">Продолжить</base-button>
@@ -93,9 +94,10 @@ import CalcResult from "@/components/pages/poll/components/CalcResult";
 import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 import RadioButtonGroup from "@/components/ui/form/inputs/radio/RadioButtonGroup";
+import TheTextarea from "@/components/ui/form/TheTextarea";
 
 export default {
-  components: {TheInput, RadioButtonGroup, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
+  components: {TheTextarea, TheInput, RadioButtonGroup, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
   data() {
     return {
       currentStep: 2,
@@ -141,6 +143,45 @@ export default {
       }
       fieldset + fieldset {
         margin-left: 44px;
+      }
+    }
+  }
+  @media(max-width: $mobile-size) {
+    .contact-form {
+      max-width: 552px;
+      h4 {
+        text-align: center;
+        margin-top: 48px;
+      }
+      .inputs-wrapper {
+        flex-direction: column;
+        fieldset {
+          width: 100%;
+        }
+        fieldset + fieldset {
+          margin: 24px 0 0 0;
+        }
+      }
+    }
+    .personal {
+      align-items: flex-end !important;
+    }
+  }
+  @media(max-width: 374px) {
+    .contact-form {
+      .inputs-wrapper {
+        fieldset {
+          &:first-child {
+            .box:last-child {
+              min-width: 137px;
+            }
+          }
+          &:last-child {
+            .box:first-child {
+              min-width: 103px;
+            }
+          }
+        }
       }
     }
   }

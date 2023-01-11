@@ -155,7 +155,7 @@ body {
   min-width: 232px;
   margin-top: 38px;
 }
-.burger {
+.burger, .mob-title {
   display: none;
 }
 @media(max-width: 1200px) {
@@ -211,6 +211,9 @@ body {
 }
 
 @media(max-width: 768px) {
+  .no-calc-padding {
+    padding-bottom: 34px !important;
+  }
   .subtitle {
     font-weight: 400;
     font-size: 24px;
@@ -248,9 +251,18 @@ body {
   }
   .sub-container {
     max-width: 100%;
-    padding: 0 24px;
+    padding: 0;
   }
   .subtitle--poll {
     display: none;
+  }
+  .mob-title {
+    display: block;
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.07em;
   }
 }
