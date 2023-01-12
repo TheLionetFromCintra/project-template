@@ -47,7 +47,7 @@
   import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
   import PhoneInput from "@/components/ui/form/inputs/PhoneInput";
   import EmailInput from "@/components/ui/form/inputs/EmailInput";
-  import TheCheckbox from "@/components/ui/form/TheCheckbox";
+  import TheCheckbox from "@/components/ui/form/inputs/TheCheckbox";
 
   export default {
     components: {TheCheckbox, PhoneInput, EmailInput, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},

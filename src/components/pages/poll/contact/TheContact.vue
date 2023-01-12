@@ -70,11 +70,7 @@
                 </the-input>
               </fieldset>
             </div>
-            <the-textarea
-                label="Адрес регистрации:"
-                placeholder="Респ Крым, пгт Массандра, г Ялта, ул Стахановская, д 15 к 2 кв 24"
-            >
-            </the-textarea>
+            <address-wrapper></address-wrapper>
           </template>
           <template #default>
             <base-button class="button-main disabled" mode="green">Продолжить</base-button>
@@ -94,10 +90,12 @@ import CalcResult from "@/components/pages/poll/components/CalcResult";
 import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 import RadioButtonGroup from "@/components/ui/form/inputs/radio/RadioButtonGroup";
-import TheTextarea from "@/components/ui/form/TheTextarea";
+import AddressWrapper from "@/components/pages/poll/components/AddressWrapper";
 
 export default {
-  components: {TheTextarea, TheInput, RadioButtonGroup, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
+  components: {
+    AddressWrapper,
+    TheInput, RadioButtonGroup, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
   data() {
     return {
       currentStep: 2,

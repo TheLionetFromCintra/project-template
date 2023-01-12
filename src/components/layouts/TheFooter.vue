@@ -56,6 +56,18 @@
       margin-top: 32px;
     }
   }
+  .cabinet-footer {
+    .container {
+      max-width: 100%;
+      padding: 0 95px;
+    }
+    .description {
+      background-color: transparent;
+    }
+    .wrapper {
+      margin-left: 0;
+    }
+  }
   .bottom {
     padding: 84px 0;
   }

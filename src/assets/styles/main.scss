@@ -60,8 +60,11 @@ body {
   text-align: center;
   letter-spacing: 0.07em;
 }
-.subtitle--poll {
+.subtitle--poll,
+.subtitle--cabinet {
   text-align: left;
+}
+.subtitle--poll {
   margin-bottom: 48px;
 }
 .link-hover {
