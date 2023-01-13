@@ -11,7 +11,7 @@
           <base-button link mode="black" to="/primary" class="button">
             Получить займ
           </base-button>
-          <div class="burger" :class="{active: isOpen}" @click="toggleMenu">
+          <div class="burger" :class="{active: isVisible}" @click="toggleMenu">
             <span class="line line1"></span>
             <span class="line line2"></span>
             <span class="line line3"></span>
@@ -22,23 +22,24 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        isOpen: false,
-      };
+export default {
+  props: {
+    isVisible: {
+      type: Boolean,
+      default: false,
     },
-    methods: {
-      toggleMenu() {
-        this.isOpen = !this.isOpen;
-      }
-    },
-  }
+    toggleMenu: {
+      type: Function,
+      required: true,
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
   padding-top: 50px;
+  position: relative;
 }
 .wrapper {
   margin: 0 auto;
@@ -61,8 +62,8 @@
   min-width: 167px;
 }
 @media(max-width: $tablet_size) {
-  .wrapper {
-    max-width: 88%;
+  .header {
+    z-index: 1001;
   }
   .phone, .button {
     display: none;

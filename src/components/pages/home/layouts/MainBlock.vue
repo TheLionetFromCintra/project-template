@@ -1,9 +1,9 @@
 <template>
   <main class="main">
     <div class="container">
-      <h1>Для получения займа под 0% заполните анкету</h1>
+      <h1>{{ title }}</h1>
       <div class="description">
-        <p>Получи деньги быстро и просто независимо от вашей кредитной истории</p>
+        <p>{{ desc }}</p>
       </div>
       <the-calculator></the-calculator>
       <benefits-list></benefits-list>
@@ -19,6 +19,16 @@ import TheCalculator from '../components/calc/TheCalculator';
    components: {
      BenefitsList,
      TheCalculator
+   },
+   props: {
+     title: {
+       type: String,
+       required: true
+     },
+     desc: {
+       type: String,
+       required: true
+     }
    }
  }
 </script>

@@ -43,6 +43,11 @@ body {
   text-overflow: ellipsis;
 }
 
+button {
+  background: transparent;
+  outline: none !important;
+}
+
 .container,
 .sub-container {
   width: 100%;
@@ -185,10 +190,13 @@ body {
   display: none;
 }
 
+.html-hidden {
+  overflow: hidden !important;
+}
+
 @media (max-width: 1200px) {
   .container {
     max-width: 100%;
-    padding: 0 24px;
   }
   .subtitle {
     font-size: 40px;
@@ -244,8 +252,7 @@ body {
     line-height: 28px;
   }
   .container {
-    max-width: 100%;
-    padding: 0 15px;
+    padding: 0 24px;
   }
   .reviews .swiper-horizontal > .swiper-pagination-bullets {
     bottom: -40px;

@@ -1,10 +1,6 @@
 <template>
-  <div class="bg poll-main">
-    <div class="sub-container">
-      <sub-header></sub-header>
-      <h1 class="subtitle subtitle--poll">Оформление займа</h1>
-      <calc-result></calc-result>
-      <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Введите данные вашей карты">
+  <poll-step>
+    <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Введите данные вашей карты">
         <the-form class="card-form">
           <template #inputs>
             <h3>Данные банковской карты</h3>
@@ -63,21 +59,17 @@
           </template>
         </the-form>
       </poll-step-wrapper>
-    </div>
-  </div>
-  <the-footer class="m-0"></the-footer>
+  </poll-step>
 </template>
 
 <script>
-import TheFooter from "@/components/layouts/TheFooter";
 import TheForm from "@/components/ui/form/TheForm";
-import SubHeader from "@/components/layouts/SubHeader";
-import CalcResult from "@/components/pages/poll/components/CalcResult";
 import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
+import PollStep from "@/components/pages/poll/layouts/PollStep";
 
 export default {
-  components: {TheInput, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
+  components: {PollStep, TheInput, TheForm, PollStepWrapper, },
   data() {
     return {
       currentStep: 3,

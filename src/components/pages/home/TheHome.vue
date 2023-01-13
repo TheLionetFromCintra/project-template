@@ -1,7 +1,8 @@
 <template>
   <div class="bg--main">
-    <the-header></the-header>
-    <main-block></main-block>
+    <mob-menu :is-visible="isVisible" :close-menu="closeMenu"></mob-menu>
+    <the-header :is-visible="isVisible" :toggle-menu="toggleMenu"></the-header>
+    <main-block title="Для получения займа под 0% заполните анкету" desc="Получи деньги быстро и просто независимо от вашей кредитной истории"></main-block>
   </div>
 
   <base-wrapper class="steps observed" title="Как это работает?">
@@ -73,6 +74,8 @@ import ContactsList from "@/components/pages/home/components/ContactsList";
 import TheFooter from "@/components/layouts/TheFooter";
 import QuestionsList from "@/components/pages/home/components/questions/QuestionsList";
 import ReviewsList from "@/components/pages/home/components/ReviewsList";
+import MobMenu from "@/components/layouts/MobMenu";
+
 import mobileMixin from "@/mixins/mobile";
 
 export default {
@@ -88,6 +91,7 @@ export default {
     TheHeader,
     MainBlock,
     StatList,
+    MobMenu
   },
   mixins: [mobileMixin],
   methods: {

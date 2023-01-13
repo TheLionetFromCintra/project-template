@@ -159,7 +159,7 @@
   }
   @media(max-width: $mobile_size) {
     .item {
-      margin: 0 28px;
+      margin: 0 18px;
     }
     .top {
       padding: 12px 0;

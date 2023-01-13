@@ -1,51 +1,61 @@
 <template>
-  <div class="sidebar">
-    <div class="logo">
-      <router-link to="/" class="logo img-wrapper d-flex align-items-center justify-content-center">
-        <img src="@/assets/images/logo.svg" alt="logo">
-      </router-link>
+    <div class="sidebar" v-if="isDesktop">
+      <div class="logo">
+        <router-link to="/" class="logo img-wrapper d-flex align-items-center justify-content-center">
+          <img src="@/assets/images/logo.svg" alt="logo">
+        </router-link>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li>
+            <router-link class="link d-inline-flex align-items-center" to="/lk/offers">
+              <div class="icon img-wrapper d-flex align-items-center justify-content-center">
+                <img src="@/assets/images/icons/profile-menu/icon-offers.svg" alt="link menu icon">
+              </div>
+              <span>Предложения</span>
+            </router-link>
+          </li>
+          <li v-for="link in links" :key="link.link">
+            <router-link class="link d-inline-flex align-items-center" :to="link.link">
+              <div class="icon img-wrapper d-flex align-items-center justify-content-center">
+                <img :src="require(`@/assets/images/icons/profile-menu/icon-${link.icon}.svg`)" alt="link menu icon">
+              </div>
+              <span>{{ link.name }}</span>
+            </router-link>
+          </li>
+          <li>
+            <button class="link d-inline-flex align-items-center">
+              <div class="icon img-wrapper d-flex align-items-center justify-content-center">
+                <img src="@/assets/images/icons/profile-menu/icon-exit.svg" alt="link menu icon">
+              </div>
+              <span>Выйти</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class="home-link">
+        <router-link class="link d-inline-flex align-items-center" to="/">
+          <div class="icon img-wrapper d-flex align-items-center justify-content-center">
+            <img src="@/assets/images/icons/profile-menu/icon-home.svg" alt="link menu icon">
+          </div>
+          <span>Главная</span>
+        </router-link>
+      </div>
     </div>
-    <nav class="menu">
-      <ul>
-        <li>
-          <router-link class="link d-inline-flex align-items-center" to="/lk/offers">
-            <div class="icon img-wrapper d-flex align-items-center justify-content-center">
-              <img src="@/assets/images/icons/profile-menu/icon-offers.svg" alt="link menu icon">
-            </div>
-            <span>Предложения</span>
-          </router-link>
-        </li>
-        <li v-for="link in links" :key="link.link">
-          <router-link class="link d-inline-flex align-items-center" :to="link.link">
-            <div class="icon img-wrapper d-flex align-items-center justify-content-center">
-              <img :src="require(`@/assets/images/icons/profile-menu/icon-${link.icon}.svg`)" alt="link menu icon">
-            </div>
-            <span>{{ link.name }}</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link class="link d-inline-flex align-items-center" to="/">
-            <div class="icon img-wrapper d-flex align-items-center justify-content-center">
-              <img src="@/assets/images/icons/profile-menu/icon-exit.svg" alt="link menu icon">
-            </div>
-            <span>Выйти</span>
-          </router-link>
-        </li>
-      </ul>
-    </nav>
-    <div class="home-link">
-      <router-link class="link d-inline-flex align-items-center" to="/">
-        <div class="icon img-wrapper d-flex align-items-center justify-content-center">
-          <img src="@/assets/images/icons/profile-menu/icon-home.svg" alt="link menu icon">
-        </div>
-        <span>Главная</span>
-      </router-link>
-    </div>
-  </div>
 </template>
 
 <script>
   export default {
+    props: {
+      isDesktop: {
+        type: Boolean,
+        default: false,
+      },
+      isVisible: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data() {
       return {
         links: [
@@ -71,7 +81,7 @@
           },
         ],
       };
-    }
+    },
   }
 </script>
 

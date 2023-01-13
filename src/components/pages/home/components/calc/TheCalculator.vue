@@ -131,7 +131,7 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
   }
   @media(max-width: $mobile_size) {
     .calculator {
-      max-width: 88%;
+      max-width: 93%;
       margin: 36px auto 0 auto;
     }
     .wrapper {

@@ -1,9 +1,6 @@
 <template>
-  <div class="bg poll-main">
-    <div class="sub-container">
-      <sub-header class="no-calc-padding"></sub-header>
-      <h1 class="subtitle subtitle--poll">Оформление займа</h1>
-      <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Подтвердите номер телефона">
+ <poll-step padding-class="no-calc-padding" :show-calc="false">
+   <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Подтвердите номер телефона">
         <the-form class="verif-form">
           <template #inputs>
             <h3 class="mob-title">Подтверждение телефона</h3>
@@ -60,23 +57,20 @@
           </template>
         </the-form>
       </poll-step-wrapper>
-    </div>
-  </div>
-  <the-footer class="m-0"></the-footer>
+ </poll-step>
 </template>
 
 <script>
-import TheFooter from "@/components/layouts/TheFooter";
 import TheForm from "@/components/ui/form/TheForm";
-import SubHeader from "@/components/layouts/SubHeader";
 import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 
 import inputCheckMixin from "@/mixins/inputCheck";
 import phoneMaskMixin from '@/mixins/phoneMask';
+import PollStep from "@/components/pages/poll/layouts/PollStep";
 
 export default {
-  components: {TheInput, TheForm, TheFooter, PollStepWrapper, SubHeader},
+  components: {PollStep, TheInput, TheForm, PollStepWrapper},
   mixins: [inputCheckMixin, phoneMaskMixin],
   data() {
     return {

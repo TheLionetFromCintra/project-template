@@ -13,7 +13,9 @@ import TheHome from "../components/pages/home/TheHome.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: "/", component: TheHome },
+        { path: "/",
+          component: TheHome,
+        },
         { path: "/primary", component: () => import("@/components/pages/poll/primary/ThePrimary")},
         { path: "/verificate", component: () => import("@/components/pages/poll/primary/PhoneAuth") },
         { path: "/contact", component: () => import("@/components/pages/poll/contact/TheContact") },
@@ -25,8 +27,12 @@ const router = createRouter({
           children: [
               { path: "profile", component: () => import("@/components/pages/lk/subpages/ProfilePage") },
               { path: "documents", component: () => import("@/components/pages/lk/subpages/DocumentsPage") },
+              { path: "offers", component: () => import("@/components/pages/lk/subpages/OffersPage") },
+              { path: "subscription", component: () => import("@/components/pages/lk/subpages/SubscriptionPage") },
+              { path: "feedback", component: () => import("@/components/pages/lk/subpages/FeedbackPage") },
           ],
         },
+        { path: "/final", component: () => import("@/components/pages/final/TheFinal")},
         { path: "/:notFound(.*)", component: () => import("../components/pages/NotFound.vue") },
     ],
     scrollBehavior() {

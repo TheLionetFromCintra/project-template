@@ -1,10 +1,6 @@
 <template>
-  <div class="bg poll-main">
-    <div class="sub-container">
-      <sub-header></sub-header>
-      <h1 class="subtitle subtitle--poll">Оформление займа</h1>
-      <calc-result></calc-result>
-      <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Заполните анкету">
+  <poll-step>
+    <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Заполните анкету">
         <the-form class="contact-form">
           <template #inputs>
             <h3 class="mob-title">Персональные данные</h3>
@@ -77,25 +73,22 @@
           </template>
         </the-form>
       </poll-step-wrapper>
-    </div>
-  </div>
-  <the-footer class="m-0"></the-footer>
+  </poll-step>
 </template>
 
 <script>
-import TheFooter from "@/components/layouts/TheFooter";
 import TheForm from "@/components/ui/form/TheForm";
-import SubHeader from "@/components/layouts/SubHeader";
-import CalcResult from "@/components/pages/poll/components/CalcResult";
 import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 import RadioButtonGroup from "@/components/ui/form/inputs/radio/RadioButtonGroup";
 import AddressWrapper from "@/components/pages/poll/components/AddressWrapper";
+import PollStep from "@/components/pages/poll/layouts/PollStep";
 
 export default {
   components: {
+    PollStep,
     AddressWrapper,
-    TheInput, RadioButtonGroup, TheForm, TheFooter, PollStepWrapper, CalcResult, SubHeader},
+    TheInput, RadioButtonGroup, TheForm, PollStepWrapper},
   data() {
     return {
       currentStep: 2,
