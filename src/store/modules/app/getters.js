@@ -5,4 +5,7 @@ export default {
             amount
         }
     },
+    user({ data }) {
+        return data || {};
+    },
 };

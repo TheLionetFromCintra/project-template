@@ -1,3 +1,0 @@
-<template>
-  feedback page
-</template>

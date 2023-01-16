@@ -34,7 +34,7 @@
               <a class="link-hover" href="mailto:support@mail.ru">support@mail.ru</a>
               <span>Все права защищены</span>
             </div>
-            <base-button class="link" link mode="grey" to="/unsubscribe">Отписаться</base-button>
+            <base-button class="link" link href mode="grey" to="/unsubscribe">Отписаться</base-button>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@
     .wrapper {
       margin: 0;
       order: 3;
-      a, span {
+      a:not(.link), span {
         font-size: 12px;
         line-height: 18px;
       }

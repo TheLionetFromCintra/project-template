@@ -7,4 +7,7 @@ export default {
         amount && Cookies.set('sum', amount);
         term && Cookies.set('term', JSON.stringify(term));
     },
+    setUserData(state, payload) {
+        state.data = payload;
+    }
 };

@@ -136,4 +136,9 @@ export default {
       margin-top: 40px;
     }
   }
+  @media(max-width: 374px) {
+    .link {
+      min-width: 174px;
+    }
+  }
 </style>

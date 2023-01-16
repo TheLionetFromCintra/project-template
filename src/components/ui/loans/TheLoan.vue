@@ -79,6 +79,14 @@
       letter-spacing: .07em;
       color: $primary-white;
       padding: 12px;
+      transition: color 0.3s linear, background-color 0.3s linear, border-color 0.3s linear, box-shadow 0.2s linear;
+
+      &:hover {
+        box-shadow: 0px 0px 5px rgba(66, 178, 141, 0.6), 0px 4px 15px rgba(33, 111, 85, 0.37);
+      }
+      &:focus, &:active, &:focus-within {
+        background-color: #227C5E;
+      }
     }
   }
   @media(max-width: $mobile-size) {

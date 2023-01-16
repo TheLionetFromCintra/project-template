@@ -99,6 +99,7 @@ import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
     padding: 27px;
     min-width: 247px;
     margin-left: 16px;
+    color: inherit;
   }
   .text, .text-big {
     letter-spacing: 0.07em;

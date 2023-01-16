@@ -60,11 +60,6 @@
       return {
         links: [
           {
-            link: '/lk/subscription',
-            name: 'Подписки',
-            icon: 'subscription'
-          },
-          {
             link: '/lk/profile',
             name: 'Профиль',
             icon: 'profile'
@@ -73,11 +68,6 @@
             link: '/lk/documents',
             name: 'Документы',
             icon: 'documents'
-          },
-          {
-            link: '/lk/feedback',
-            name: 'Обратная связь',
-            icon: 'feedback'
           },
         ],
       };

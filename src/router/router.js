@@ -26,13 +26,24 @@ const router = createRouter({
           redirect: '/lk/profile',
           children: [
               { path: "profile", component: () => import("@/components/pages/lk/subpages/ProfilePage") },
+              { path: "edit", component: () => import("@/components/pages/lk/subpages/EditPage") },
               { path: "documents", component: () => import("@/components/pages/lk/subpages/DocumentsPage") },
               { path: "offers", component: () => import("@/components/pages/lk/subpages/OffersPage") },
-              { path: "subscription", component: () => import("@/components/pages/lk/subpages/SubscriptionPage") },
-              { path: "feedback", component: () => import("@/components/pages/lk/subpages/FeedbackPage") },
           ],
         },
         { path: "/final", component: () => import("@/components/pages/final/TheFinal")},
+        {
+          path: "/unsubscribe",
+          component: () => import("@/components/pages/unsubscribe/TheUnsubscribe"),
+            redirect: '/unsubscribe/main',
+          children: [
+              { path: "main", name: 'Unsubscribe', component: () => import("@/components/pages/unsubscribe/subpages/UnsubMain") },
+              { path: "success", name: 'UnsubSuccess', component: () => import("@/components/pages/unsubscribe/subpages/UnsubSuccess") },
+              { path: "info", component: () => import("@/components/pages/unsubscribe/subpages/UnsubInfo") },
+              { path: "code", component: () => import("@/components/pages/lk/subpages/DocumentsPage") },
+          ],
+        },
+        { path: "/ticket/:uid", component: () => import("@/components/pages/ticket/TheTicket") },
         { path: "/:notFound(.*)", component: () => import("../components/pages/NotFound.vue") },
     ],
     scrollBehavior() {

@@ -1,7 +1,10 @@
 <template>
-  <button v-if="!link" :class="mode">
+  <button v-if="!link" :class="mode" :type="type">
     <slot></slot>
   </button>
+  <a :href="to" v-else-if="link && href" :class="mode">
+    <slot></slot>
+  </a>
   <router-link v-else :to="to" :class="mode">
     <slot></slot>
   </router-link>
@@ -20,10 +23,20 @@
         required: false,
         default: false,
       },
+      href: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
       to: {
         type: String,
         required: false,
         default: "/",
+      },
+      type: {
+        type: String,
+        required: false,
+        default: '',
       },
     },
   };
