@@ -1,5 +1,5 @@
 <template>
-  <poll-step :show-calc="false" :show-title="false" widthClass="final">
+  <poll-step :show-calc="false" :show-title="false" width-class="final">
     <h1 class="subtitle subtitle--poll">Предложения</h1>
     <div class="desc">
       <span><b>Быстро</b> оформить заявку с любой кредитной историей.</span>

@@ -1,5 +1,5 @@
 <template>
-  <poll-step :show-calc="false" :show-title="false" widthClass="final">
+  <poll-step :show-calc="false" :show-title="false" width-class="final">
     <h1 class="subtitle subtitle--poll">Отказаться от подписки</h1>
     <div class="banner"></div>
     <router-view></router-view>
@@ -8,6 +8,7 @@
 
 <script>
 import PollStep from "@/components/pages/poll/layouts/PollStep";
+
 export default {
   components: {PollStep},
   mounted() {
@@ -37,7 +38,7 @@ export default {
 
       const script = document.createElement('script');
       script.src = 'https://network.adsfin.pro/59918a10.js';
-      script.async = true;
+      script.defer = true;
       document.head.appendChild(script);
     },
   }
@@ -45,11 +46,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media(max-width: $mobile_size) {
-  .subtitle {
-    display: block;
-    padding: 0 24px;
-    margin-bottom: 24px;
+  @media(max-width: $mobile_size) {
+    .subtitle {
+      display: block;
+      padding: 0 24px;
+      margin-bottom: 24px;
+    }
   }
-}
 </style>

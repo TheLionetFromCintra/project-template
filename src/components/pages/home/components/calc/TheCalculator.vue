@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
+  import Cookies from 'js-cookie';
 
-import term from '@/helpers/string/term';
-import price from '@/helpers/string/price';
-import SumCalc from "@/components/pages/home/components/calc/SumCalc";
-import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
+  import term from '@/helpers/string/term';
+  import price from '@/helpers/string/price';
+  import SumCalc from "@/components/pages/home/components/calc/SumCalc";
+  import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
 
   export default {
     components: {DaysCalc, SumCalc},

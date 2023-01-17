@@ -63,20 +63,26 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 import TheHeader from "@/components/layouts/TheHeader";
 import MainBlock from "@/components/pages/home/layouts/MainBlock";
-import StepsList from "@/components/pages/home/components/StepsList";
-import PayList from "@/components/pages/home/components/PayList";
-import AboutList from "@/components/pages/home/components/AboutList";
-import OffersList from "@/components/pages/home/components/OffersList";
-import StatList from "@/components/pages/home/components/StatList";
-import ContactsList from "@/components/pages/home/components/ContactsList";
 import TheFooter from "@/components/layouts/TheFooter";
-import QuestionsList from "@/components/pages/home/components/questions/QuestionsList";
-import ReviewsList from "@/components/pages/home/components/ReviewsList";
-import MobMenu from "@/components/layouts/MobMenu";
+
+const StepsList = defineAsyncComponent( () => import("@/components/pages/home/components/StepsList"));
+const PayList = defineAsyncComponent( () => import("@/components/pages/home/components/PayList"));
+const AboutList = defineAsyncComponent( () => import("@/components/pages/home/components/AboutList"));
+const OffersList = defineAsyncComponent( () => import("@/components/pages/home/components/OffersList"));
+const StatList = defineAsyncComponent( () => import("@/components/pages/home/components/StatList"));
+const ContactsList = defineAsyncComponent( () => import("@/components/pages/home/components/ContactsList"));
+const QuestionsList = defineAsyncComponent( () => import("@/components/pages/home/components/questions/QuestionsList"));
+const ReviewsList = defineAsyncComponent( () => import("@/components/pages/home/components/ReviewsList"));
+const MobMenu = defineAsyncComponent( () => import("@/components/layouts/MobMenu"));
 
 import mobileMixin from "@/mixins/mobile";
+import comebacker from "@/mixins/comebacker";
+
+import Cookies from 'js-cookie';
 
 export default {
   components: {
@@ -93,7 +99,7 @@ export default {
     StatList,
     MobMenu
   },
-  mixins: [mobileMixin],
+  mixins: [mobileMixin, comebacker],
   methods: {
     setObserver() {
       const allSections = document.querySelectorAll('.observed');
@@ -121,6 +127,14 @@ export default {
   mounted() {
     this.setObserver();
   },
+  beforeRouteEnter(to, from, next) {
+    if (Cookies.get('sbg-cpa')) {
+      next();
+    } else {
+      // Store.commit('application/load', false);
+      next({ name: 'LoanPrimary' });
+    }
+  }
 };
 </script>
 

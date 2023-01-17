@@ -10,6 +10,8 @@
       :beforeList="warning"
       :showLoading="showLoading"
       :list="list"
+      @change="change"
+      :active-value="activeValue"
   >
   </address-input>
 </template>
@@ -24,6 +26,13 @@
 
   export default {
     components: {AddressInput},
+    props: {
+      activeValue: {
+        type: String,
+        required: false,
+      }
+    },
+    emits: ['update:modelValue', 'change'],
     mounted() {
       this.isMounted = true;
     },
@@ -47,13 +56,17 @@
 
         this.getList(v);
       },
+      change(v) {
+        this.$emit('update:modelValue', v);
+      },
       getListTimeout(v) {
-        // this.$emit('change', v)
         this.warning = '';
         this.list = [];
         this.showLoading = 5;
         clearTimeout(this.timeoutID);
         this.timeoutID = setTimeout(() => this.getList(v.target.value), 600);
+
+        this.$emit('update:modelValue', v.target.value);
       },
       getList(v) {
         if (!v) {

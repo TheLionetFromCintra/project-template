@@ -33,7 +33,7 @@ export default {
     background: #fff url('@/assets/images/background/poll/poll-bg.svg') repeat 90% 900px;
   }
   .content {
-    padding: 115px 95px 0 95px;
+    padding: 115px 85px 0 85px;
   }
   @media(max-width: $tablet_size) {
     .content {
@@ -45,7 +45,12 @@ export default {
       background: #fafafa;
     }
     .content {
-      padding: 0 24px;
+      padding: 0;
+    }
+    .cabinet {
+      .header {
+        padding: 24px 24px 0 24px;
+      }
     }
   }
 </style>

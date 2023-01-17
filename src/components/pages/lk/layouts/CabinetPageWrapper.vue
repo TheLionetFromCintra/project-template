@@ -16,3 +16,11 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+@media(max-width: $mobile_size) {
+  .subtitle {
+    padding: 0 24px;
+  }
+}
+</style>

@@ -118,6 +118,9 @@ export default {
         margin-top: 16px;
       }
     }
+    .desc, .content {
+      padding: 0 24px;
+    }
     .loans {
       display: flex;
       flex-direction: column;

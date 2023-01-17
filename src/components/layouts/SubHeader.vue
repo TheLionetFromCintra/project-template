@@ -50,7 +50,7 @@ export default {
   @media(max-width: $mobile_size) {
     .header {
       padding: 24px 24px 0 24px;
-      margin-bottom: 24px;
+      margin-bottom: 36px;
     }
     .logo {
       max-width: 50px;

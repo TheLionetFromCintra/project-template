@@ -22,6 +22,9 @@ export default {
     checked: {
       type: Boolean,
       default: false,
+    },
+    modelValue: {
+      type: [String, Number]
     }
   },
   emits: ['update:modelValue'],

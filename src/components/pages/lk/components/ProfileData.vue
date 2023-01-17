@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="title d-flex align-items-center">
       <h4>{{ title }}</h4>
-      <router-link to="edit" class="icon img-wrapper d-flex align-items-center justify-content-center">
+      <router-link v-if="showIcon" to="edit" class="icon img-wrapper d-flex align-items-center justify-content-center">
         <img src="@/assets/images/icons/profile-menu/edit.svg" alt="edit data icon">
       </router-link>
     </div>
@@ -25,6 +25,10 @@
       fields: {
         type: Array,
         required: true,
+      },
+      showIcon: {
+        type: Boolean,
+        default: false,
       }
     },
   }

@@ -57,7 +57,7 @@
                 >
                 </the-input>
                 <the-input
-                    label="Номер подразделения:"
+                    label="Код подразделения:"
                     placeholder="900-002"
                     length="7"
                     input-type="letter"

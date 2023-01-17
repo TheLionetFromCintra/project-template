@@ -8,7 +8,8 @@
           v-for="option in options"
           :option="option"
           :key="option.key"
-          :checked="option.key === '0' ? true : false"
+          :checked="option.key === gender ? true : false"
+          @change="$emit('update:modelValue', $event.target.value)"
       >
       </radio-button>
     </div>
@@ -21,6 +22,7 @@ export default {
   components: {
     RadioButton,
   },
+  emits: ['update:modelValue'],
   props: {
     label: {
       type: String,
@@ -29,8 +31,17 @@ export default {
     options: {
       type: Array,
       required: true,
+    },
+    activeGender: {
+      type: String,
+      required: false,
     }
   },
+  computed: {
+    gender() {
+      return this.activeGender ? this.activeGender : '0';
+    }
+  }
 };
 </script>
 

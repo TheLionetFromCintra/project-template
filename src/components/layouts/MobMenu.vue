@@ -37,6 +37,9 @@
           <span>Главная</span>
         </router-link>
       </div>
+      <div class="button d-flex justify-content-center">
+        <base-button mode="green" link to="/login">Войти</base-button>
+      </div>
     </div>
   </transition>
 </template>
@@ -88,6 +91,9 @@ export default {
   li + li {
     margin-top: 12px;
   }
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid $primary-black;
 }
 .link {
   font-size: 16px;
@@ -125,11 +131,6 @@ export default {
     opacity: 1;
   }
 }
-.home-link {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid $primary-black;
-}
 .icon {
   max-width: 22px;
   height: 22px;
@@ -164,10 +165,18 @@ export default {
   .sub-container {
     .menu, .home-link {
       max-width: 954px;
-      margin: 0 auto;
+      margin: 0 auto 24px auto;
     }
     .home-link {
-      margin-top: 24px;
+      margin-bottom: 0;
+    }
+  }
+  .button {
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid $primary-black;
+    a {
+      min-width: 232px;
     }
   }
 }

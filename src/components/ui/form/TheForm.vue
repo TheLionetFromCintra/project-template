@@ -10,6 +10,12 @@
   </form>
 </template>
 
+<script>
+export default {
+  emits: ['submit'],
+}
+</script>
+
 
 <style lang="scss" scoped>
   .top {

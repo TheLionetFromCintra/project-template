@@ -55,3 +55,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.box input {
+  padding-left: 16px;
+}
+</style>

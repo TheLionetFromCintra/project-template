@@ -9,6 +9,7 @@
             :type="type"
             :placeholder="placeholder"
             :maxlength="length"
+            :value="modelValue"
             @input="initInput($event)"
             autocomplete="off"
             autocapitalize="off"
@@ -29,7 +30,11 @@
 
   export default {
     mixins: [inputCheckMixin],
+    emits: ['update:modelValue'],
     props: {
+      modelValue: {
+        type: [String, Number],
+      },
       type: {
         type: String,
         default: 'text'
@@ -109,7 +114,7 @@
             e.target.value = '12';
           }
         }
-
+        this.$emit('update:modelValue', e.target.value);
       }
     },
     mounted() {

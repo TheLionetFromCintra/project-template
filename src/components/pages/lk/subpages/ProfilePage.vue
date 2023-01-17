@@ -2,9 +2,9 @@
   <cabinet-page-wrapper title="Профиль">
     <template #content>
       <div class="content">
-        <profile-data title="Личные данные" :fields="personalFields" class="personal-data"></profile-data>
-        <profile-data title="Паспортные данные" :fields="passportFields" class="passport-data"></profile-data>
-        <profile-data title="Привязанная карта" :fields="cardFields" class="card-data"></profile-data>
+        <profile-data title="Личные данные" :fields="personalFields" :show-icon="true" class="personal-data"></profile-data>
+        <profile-data title="Паспортные данные" :fields="passportFields" :show-icon="true" class="passport-data"></profile-data>
+        <profile-data title="Привязанная карта" :fields="cardFields" :show-icon="false" class="card-data"></profile-data>
       </div>
     </template>
   </cabinet-page-wrapper>
@@ -61,7 +61,7 @@ export default {
       return [
         {
           label: 'Серия',
-          value: this.getValue(this.data.passportData.passportissuecode)
+          value: this.getValue(this.data.passportData.passportcode)
         },
         {
           label: 'Номер',
@@ -119,6 +119,7 @@ export default {
   @media(max-width: $mobile_size) {
     .content {
       margin-top: 24px;
+      padding: 0 24px;
     }
   }
 </style>

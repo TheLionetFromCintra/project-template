@@ -51,7 +51,7 @@
 import './style/input.scss';
 
 export default {
-  emits: ['focus', 'listClick'],
+  emits: ['focus', 'listClick','change'],
   props: {
     label: {
       type: String,
@@ -88,6 +88,10 @@ export default {
     showLoading: {
       type: Number,
       default: 0
+    },
+    activeValue: {
+      type: String,
+      required: false,
     }
   },
   data() {
@@ -126,8 +130,8 @@ export default {
     setItem(item) {
       this.$emit('listClick');
       this.fieldValue = item.value;
-      // this.$emit('change', item);
-      // this.$refs.field.focus();
+
+      this.$emit('change', this.fieldValue);
     },
     getPathItem(item, type) {
       if (!item)
@@ -173,6 +177,7 @@ export default {
   mounted() {
     document.addEventListener('click', this.globalEventCheck);
     document.addEventListener('focusin', this.globalEventCheck);
+    this.fieldValue = this.activeValue ? this.activeValue : '';
   },
   beforeUnmount() {
     document.removeEventListener('focusin', this.globalEventCheck);

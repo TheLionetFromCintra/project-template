@@ -39,17 +39,34 @@
   import PhoneInput from "@/components/ui/form/inputs/PhoneInput";
   import EmailInput from "@/components/ui/form/inputs/EmailInput";
   import TheCheckbox from "@/components/ui/form/inputs/TheCheckbox";
-
   import PollStep from "@/components/pages/poll/layouts/PollStep";
+
+  import dictionaryMixin from "@/mixins/dictionary";
 
   export default {
     components: { PollStep, TheCheckbox, PhoneInput, EmailInput, TheForm, PollStepWrapper },
+    mixins: [dictionaryMixin],
     data() {
       return {
         currentStep: 1,
         maxStep: 3,
         checkboxText: '<b>Совершая действия на сайте, вы даете свое</b> Согласие на обработку персональных данных, Согласие на получение рекламных материалов и Защита от непредвиденных ситуаций. Вы ознакомились и соглашаетесь с Договором публичной оферты, Политикой Конфиденциальности и тарифами сервиса.'
       };
+    },
+    mounted() {
+      console.log(this.dictionary)
+    },
+    created() {
+      this.test();
+    },
+    methods: {
+      async test() {
+        try {
+          await this.$store.dispatch("dictionary/init");
+        } catch (error) {
+          this.error = error.message || "Something went wrong!";
+        }
+      },
     }
   }
 </script>
