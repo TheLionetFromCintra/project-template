@@ -19,7 +19,7 @@ export default {
                 e.target.value = e.target.value.replace(/[0-9]/g, '');
             }
         },
-        setMask(val, mask) {
+        setMask(val = '', mask= '') {
             const newVal = [];
             const maskChars = mask.split('');
             const valChars = val.split('');
@@ -90,6 +90,20 @@ export default {
 
             const date = [day, month, year].filter(item => item).join('.');
             return date;
-        }
+        },
+        checkEmail(value) {
+            if (!value)
+                return true;
+
+            const mailRegExp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+            return mailRegExp.test(value);
+        },
+        checkPhone(value) {
+            if (!value)
+                return true;
+
+            const onlyNumbers = String(value).replace(/[^\d]/g, '');
+            return onlyNumbers.length === 11 && onlyNumbers[1] === '9';
+        },
     },
 }

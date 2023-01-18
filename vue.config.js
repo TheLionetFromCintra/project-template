@@ -15,6 +15,7 @@ module.exports = defineConfig({
         secure: true,
       },
     },
+    // proxy: "https://kviza.ra1z.ru"
   },
   transpileDependencies: true,
   css: {

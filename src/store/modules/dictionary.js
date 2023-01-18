@@ -12,8 +12,7 @@ async function getDictionary(commit) {
 
     const type = Cookies.get('sbg-cpa') ? 'cpa' : 'common';
 
-    const runtimeConfig = await fetch(`/dictionary/${type}.json`);
-
+    const runtimeConfig = await fetch(`https://kviza.ru/dictionary/${type}.json`);
     const dictionary = await runtimeConfig.json();
 
     commit('set', dictionary);

@@ -2,24 +2,7 @@
   <footer class="footer">
 <!--      не забыть v-html-->
       <div class="description">
-        <div class="container">
-          <p>
-            Информация, размещенная на данном сайте, носит исключительно справочный характер и собрана из различных открытых источников информации в соответствии с законодательством РФ. Владелец сайта не несет ответственности за вред чести, достоинству и деловой репутации, за ущерб связанный с упущенной выгодой в результате использования Сайта.
-          </p>
-          <p>Совершая любые действия на сайте, вы даете свое:</p>
-
-          <p>Согласие на обработку персональных данных;</p>
-          <p>Согласие на получение рекламных материалов.</p>
-
-          <p> Услуги на проекте оказываются ИП Баранова Вероника Владимировна ИНН 781302408609 ОГРНИП 320784700177339 Оператор персональных данных № 78-20-007098</p>
-
-          <p> По любым вопросам вы можете связаться со специалистами сервиса по электронной почте: support@ryabina.uno</p>
-
-          <p>Сайт предназначен для дееспособных лиц старше 18 лет. Сайт не хранит данные банковских карт Клиентов. Сайт «ryabina.uno» использует куки для предоставления услуг. Условия хранения или доступа к куки Вы можете настроить в своём браузере.</p>
-
-          <p>Уважаемые Клиенты, информируем Вас о том, что при запросе возврата денежных средств при отказе от подписки, возврат производится исключительно на ту же банковскую карту, с которой была произведена оплата. Для возврата денежных средств подайте заявку в службу поддержки или на почту support@ryabina.uno с указанием причины возврата, а также даты и суммы платежа.</p>
-
-          <p>Сайт не является финансовым учреждением, банком или кредитором, не несёт и не может нести ответственность за любые условия или заключенные договоры кредитования с третьими сторонами. **Подписка на услугу обработки заявки является платной и составляет 332 р. за 6 дней, на срок 30 дней. Обработка заявки не гарантирует получение займа</p>
+        <div class="container" v-html="text">
         </div>
       </div>
       <div class="bottom">
@@ -29,8 +12,7 @@
               <img src="@/assets/images/logo.svg" alt="logo">
             </router-link>
             <div class="wrapper d-flex flex-column align-items-center">
-<!--              не забыть replace-->
-              <a class="link-hover" href="tel:79991111111">+ 7 999 111 11 11</a>
+              <a class="link-hover" :href="`tel:${dictionary.phone}`">{{ phone }}</a>
               <a class="link-hover" href="mailto:support@mail.ru">support@mail.ru</a>
               <span>Все права защищены</span>
             </div>
@@ -41,6 +23,35 @@
   </footer>
 </template>
 
+<script>
+import {mapGetters} from "vuex";
+import sbgMixin from "@/mixins/sbg";
+import inputCheckMixin from "@/mixins/inputCheck";
+
+export default {
+  mixins: [sbgMixin, inputCheckMixin],
+  computed: {
+    ...mapGetters({
+      dictionary: 'dictionary/dictionary'
+    }),
+    phone() {
+      return this.setMask(this.dictionary.phone, '# (###) ###-##-##');
+    },
+    text() {
+      // if (this.$route.name === 'Main' && this.$DICTIONARY?.footerTextIndex)
+      //   return this.$DICTIONARY?.footerTextIndex
+      //
+      // if (this.isSbg)
+      //   return this.$DICTIONARY?.footerTextFirst || this.$DICTIONARY?.footerText;
+      if(!this.isAuth && this.isSbg) {
+        return this.dictionary.footerTextFirst;
+      } else {
+        return this.dictionary.footerText;
+      }
+    }
+  },
+}
+</script>
 
 <style lang="scss" scoped>
   .footer {
@@ -49,11 +60,17 @@
   .description {
     padding: 58px 0;
     background-color: #EFF3F9;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 26px;
     letter-spacing: 0.07em;
-    &::v-deep p + p {
-      margin-top: 32px;
+    &::v-deep {
+      a {
+        color: $primary-blue-dark;
+        font-weight: 600;
+      }
+      p + p {
+        margin-top: 32px;
+      }
     }
   }
   .cabinet-footer {

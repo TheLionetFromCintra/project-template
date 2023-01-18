@@ -1,32 +1,44 @@
 <template>
   <poll-step>
     <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Заполните форму">
-      <the-form class="primary-form">
+      <the-form class="primary-form" @submit="submit">
         <template #inputs>
           <h3 class="mob-title">Контактные данные</h3>
           <fieldset class="inputs d-flex align-items-start">
             <phone-input
-                label="Номер телефона:"
+                v-model="form.phone"
+                label="Номер телефона*"
                 placeholder="+7 911 111 11 11"
-                error-message="Неверный формат"
+                :error-message="errors.phone"
+                @focus="clearValidity('phone')"
+                :filled-class="this.user.contactData.phone ? 'filled' : ''"
             >
             </phone-input>
             <email-input
-                label="Электронная почта:"
+                v-model="form.email"
+                label="Электронная почта"
                 placeholder="для получения документов"
+                :error-message="errors.email"
+                @focus="clearValidity('email')"
             >
             </email-input>
           </fieldset>
           <div class="checkbox-wrapper">
             <the-checkbox
-                :desc="checkboxText"
-                error-message="Необходимо согласиться с условиями"
+                v-model="agreement"
+                :desc="dictionary.acceptanceText"
+            >
+            </the-checkbox>
+            <the-checkbox
+                v-if="!this.isSbg"
+                v-model="autoPayment"
+                :desc="dictionary.acceptanceAutoPayment"
             >
             </the-checkbox>
           </div>
         </template>
         <template #default>
-          <base-button class="button-main disabled" mode="green">Продолжить</base-button>
+          <base-button class="button-main" mode="green" :class="{disabled: isBtnDisabled}">Продолжить</base-button>
         </template>
       </the-form>
     </poll-step-wrapper>
@@ -41,32 +53,98 @@
   import TheCheckbox from "@/components/ui/form/inputs/TheCheckbox";
   import PollStep from "@/components/pages/poll/layouts/PollStep";
 
-  import dictionaryMixin from "@/mixins/dictionary";
+  import inputCheckMixin from '@/mixins/inputCheck';
+  import sbgMixin from '@/mixins/sbg';
+
+  // import Storage from '@/ext/storage/storage';
+
+  import {mapGetters} from "vuex";
 
   export default {
     components: { PollStep, TheCheckbox, PhoneInput, EmailInput, TheForm, PollStepWrapper },
-    mixins: [dictionaryMixin],
+    mixins: [inputCheckMixin, sbgMixin],
     data() {
       return {
         currentStep: 1,
         maxStep: 3,
-        checkboxText: '<b>Совершая действия на сайте, вы даете свое</b> Согласие на обработку персональных данных, Согласие на получение рекламных материалов и Защита от непредвиденных ситуаций. Вы ознакомились и соглашаетесь с Договором публичной оферты, Политикой Конфиденциальности и тарифами сервиса.'
+        isBtnDisabled: true,
+        form: {
+          phone: null,
+          email: null,
+        },
+        agreement: false,
+        autoPayment: false,
+        errors: {
+          email: '',
+          phone: ''
+        },
+        formIsValid: true,
       };
     },
-    mounted() {
-      console.log(this.dictionary)
+    computed: {
+      ...mapGetters({
+        user: 'app/user',
+        dictionary: 'dictionary/dictionary'
+      }),
     },
-    created() {
-      this.test();
+    mounted() {
+      this.form.phone = this.user.contactData.phone ? this.user.contactData.phone : '';
+      this.form.email = this.user.contactData.email ? this.user.contactData.email : '';
     },
     methods: {
-      async test() {
-        try {
-          await this.$store.dispatch("dictionary/init");
-        } catch (error) {
-          this.error = error.message || "Something went wrong!";
+      clearValidity(input) {
+        this.errors[input] = '';
+      },
+      validate() {
+        this.formIsValid = true;
+
+        if(!this.checkEmail(this.form.email)) {
+          this.formIsValid = false;
+          this.errors.email = 'Некорректный формат почты';
+        }
+        if(!this.checkPhone(this.form.phone)) {
+          this.formIsValid = false;
+          this.errors.phone = 'Некорректный формат номера телефона';
         }
       },
+      async submit() {
+          this.validate();
+
+          if (!this.formIsValid) {
+            return;
+          }
+          console.log(this.form)
+          const { checkPhoneByCode } = await this.$store.dispatch('app/send', {
+            contactData: this.form,
+            // showLoader: send
+          });
+          console.log(checkPhoneByCode);
+          // if(checkPhoneByCode) {
+          //   await this.$router.push('/contact');
+          // }
+      }
+    },
+    watch: {
+      form: {
+        handler(val) {
+          if(!this.isSbg) {
+            this.isBtnDisabled = !(val.phone !== '' && this.agreement && this.autoPayment);
+          } else {
+            this.isBtnDisabled = !(val.phone !== '' && this.agreement);
+          }
+        },
+        deep: true
+      },
+      agreement(val) {
+        if(!this.isSbg) {
+          this.isBtnDisabled = !(val && this.form.phone !== '' && this.autoPayment);
+        } else {
+          this.isBtnDisabled = !(val && this.form.phone !== '');
+        }
+      },
+      autoPayment(val) {
+        this.isBtnDisabled = !(val && this.form.phone !== '' && this.agreement);
+      }
     }
   }
 </script>

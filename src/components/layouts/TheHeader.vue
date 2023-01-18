@@ -6,7 +6,7 @@
             <img src="@/assets/images/logo.svg" alt="logo">
           </router-link>
           <div class="phone">
-            <a class="link-hover" href="tel:${84991124367"><span>8 (499) 112 43 67</span></a>
+            <a class="link-hover" :href="`tel:${dictionary.phone}`"><span>{{ phone }}</span></a>
           </div>
           <base-button link mode="black" to="/primary" class="button">
             Получить займ
@@ -22,7 +22,11 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+import inputCheckMixin from "@/mixins/inputCheck";
+
 export default {
+  mixins: [inputCheckMixin],
   props: {
     isVisible: {
       type: Boolean,
@@ -32,6 +36,14 @@ export default {
       type: Function,
       required: true,
     }
+  },
+  computed: {
+    ...mapGetters({
+      dictionary: 'dictionary/dictionary'
+    }),
+    phone() {
+      return this.setMask(this.dictionary.phone, '# (###) ###-##-##');
+    },
   },
 }
 </script>

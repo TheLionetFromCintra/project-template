@@ -1,11 +1,13 @@
 <template>
   <div class="checkbox">
     <label class="d-flex align-items-start justify-content-center">
-      <input type="checkbox">
+      <input
+          type="checkbox"
+          @change="$emit('update:modelValue', $event.target.checked)"
+      >
       <div class="description" v-html="desc">
       </div>
     </label>
-    <small class="err-message" v-if="errorMessage && false">{{ errorMessage }}</small>
   </div>
 </template>
 
@@ -16,15 +18,14 @@
         type: String,
         required: false,
       },
-      errorMessage: {
-        type: String,
-        required: true,
-      },
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  .checkbox + .checkbox {
+    margin-top: 14px;
+  }
   label {
     cursor: pointer;
   }
@@ -53,8 +54,11 @@
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.07em;
-  }
-  .err-message {
-    padding-left: 46px;
+    &::v-deep {
+      a {
+        color: $primary-blue-dark;
+        font-weight: 600;
+      }
+    }
   }
 </style>

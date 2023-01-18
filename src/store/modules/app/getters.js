@@ -8,4 +8,13 @@ export default {
     user({ data }) {
         return data || {};
     },
+    csrf({ csrf }) {
+        return csrf
+    },
+    code({ code_value }) {
+        return code_value
+    },
+    getme(state) {
+        return  state;
+    }
 };

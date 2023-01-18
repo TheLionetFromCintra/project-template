@@ -75,7 +75,7 @@ a.black, button.black {
 a.green, button.green {
   color: $primary-white;
   background-color: $primary-green-light;
-  border: none;
+  border-color: $primary-green-light;
   &:hover {
     box-shadow: 0px 0px 5px rgba(66, 178, 141, 0.6), 0px 4px 15px rgba(33, 111, 85, 0.37);
   }

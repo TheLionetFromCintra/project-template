@@ -7,7 +7,7 @@
         </div>
       </div>
       <span>{{ contact.title }}</span>
-      <a class="link-hover" v-if="contact.icon === 'phone'" :href="`tel:${contact.value.replace(/[^0-9]/g, '')}`">{{ contact.value }}</a>
+      <a class="link-hover" v-if="contact.icon === 'phone'" :href="`tel:${contact.value}`">{{ contact.value }}</a>
       <a class="link-hover" v-else-if="contact.icon === 'email'" :href="`mailto:${contact.value}`">{{ contact.value }}</a>
       <span v-else>{{ contact.value }}</span>
     </li>
@@ -15,13 +15,17 @@
 </template>
 
 <script>
+  import {mapGetters} from "vuex";
+  import inputCheckMixin from "@/mixins/inputCheck";
+
   export default {
+    mixins: [inputCheckMixin],
     data() {
       return {
         contacts: [
           {
             title: 'Телефон',
-            value: '8 (499) 112 43 67',
+            value: '',
             icon: 'phone',
           },
           {
@@ -37,6 +41,19 @@
         ],
       };
     },
+    computed: {
+      ...mapGetters({
+        dictionary: 'dictionary/dictionary'
+      }),
+    },
+    methods: {
+      setPhone() {
+        return this.setMask(this.dictionary.phone, '# (###) ###-##-##');
+      },
+    },
+    created() {
+      this.contacts[0].value = this.setPhone();
+    }
   }
 </script>
 
