@@ -50,10 +50,10 @@ export default {
     margin-left: 24px;
   }
   .label {
-    display: inline-block;
+    display: block;
     font-weight: 600;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 18px;
     letter-spacing: 0.07em;
     margin-bottom: 12px;
   }
@@ -62,5 +62,11 @@ export default {
     background: $primary-white;
     box-shadow: 0px 232px 93px rgba(205, 207, 210, 0.01), 0px 131px 78px rgba(205, 207, 210, 0.05), 0px 58px 58px rgba(205, 207, 210, 0.09), 0px 12px 30px rgba(180, 185, 204, 0.26), 0px 0px 0px rgba(135, 135, 135, 0.42);
     border-radius: 10px;
+  }
+  @media(max-width: $mobile-size) {
+    .label {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
 </style>

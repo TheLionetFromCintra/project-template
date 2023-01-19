@@ -8,6 +8,7 @@ export default {
   created() {
     this.initDictionary();
     this.initGetMe();
+    this.$store.dispatch('app/initCalculator');
   },
   methods: {
     async initDictionary() {

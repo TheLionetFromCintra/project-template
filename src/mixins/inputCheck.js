@@ -1,6 +1,15 @@
 const date = new Date();
 const year = date.getFullYear();
 
+import filthy from '@/helpers/validation/filthy';
+
+function dateMap(item, index) {
+    if (index === 0)
+        item = item.substr(0, 2)
+
+    return +item
+}
+
 export default {
     computed: {
         minYear() {
@@ -105,5 +114,31 @@ export default {
             const onlyNumbers = String(value).replace(/[^\d]/g, '');
             return onlyNumbers.length === 11 && onlyNumbers[1] === '9';
         },
+        checkLength(value, length) {
+            if (!value)
+                return true;
+
+            return value.length >= length;
+        },
+        checkDirty(value) {
+            return filthy(value);
+        },
+        checkLang(value) {
+            const regExp = new RegExp(/^[?!_',.а-яА-ЯёЁ0-9\s]+$/);
+            const ruWord = regExp.test(value);
+            return ruWord;
+        },
+        checkDateLess(value, minYear) {
+            let [dayLess, monthLess, yearLess] = minYear.split('.').map(dateMap);
+            let [day, month, year] = value.split('.').map(dateMap);
+
+            return (year < yearLess) || (year === yearLess && ((month < monthLess) || (month === monthLess && day <= dayLess)));
+        },
+        checkDateMore(value, maxYear) {
+            let [dayMore, monthMore, yearMore] = maxYear.split('.').map(dateMap);
+            let [day, month, year] = value.split('.').map(dateMap);
+
+            return (year > yearMore) || (year === yearMore && ((month > monthMore) || (month === monthMore && day >= dayMore)));
+        }
     },
 }

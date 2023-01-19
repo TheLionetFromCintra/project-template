@@ -12,14 +12,13 @@ export default {
             createdAt: '',
             data: {
                 contactData: {
-                    addrcity: '',
                     birthday: '',
                     email: '',
                     firstname: '',
                     gender: '',
                     lastname: '',
                     patronymic: '',
-                    phone: '',
+                    phone: '+7 999 999 90 90',
                 },
                 passportData: {
                     passportcode: '',

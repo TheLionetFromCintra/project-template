@@ -51,7 +51,7 @@
                     v-model.trim="form.gender"
                     :options="options"
                     label="Пол:"
-                    :active-gender="this.form.gender"
+                    :active-gender="form.gender"
                 >
                 </radio-button-group>
               </div>
@@ -102,7 +102,7 @@
             <fieldset class="address">
               <address-wrapper
                   v-model.trim="form.passportaddress"
-                  :active-value="this.form.passportaddress"
+                  :active-value="form.passportaddress"
               ></address-wrapper>
             </fieldset>
           </template>
@@ -134,7 +134,6 @@ export default {
         email: '',
         birthday: '',
         gender: '',
-        addrcity: '',
         passportseries: '',
         passportnumber: '',
         passportcode: '',
@@ -162,7 +161,6 @@ export default {
     this.form.email = this.user.contactData.email;
     this.form.birthday = this.user.contactData.birthday;
     this.form.gender = this.user.contactData.gender;
-    this.form.addrcity = this.user.contactData.addrcity;
 
     this.form.passportseries = this.user.passportData.passportseries;
     this.form.passportnumber = this.user.passportData.passportnumber;

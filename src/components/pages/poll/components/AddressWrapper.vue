@@ -1,6 +1,6 @@
 <template>
   <address-input
-      label="Адрес регистрации:"
+      label="Адрес регистрации*"
       placeholder="Респ Крым, пгт Массандра, г Ялта, ул Стахановская, д 15 к 2 кв 24"
       itemsLabel="value"
       itemsKey="value"
@@ -12,6 +12,7 @@
       :list="list"
       @change="change"
       :active-value="activeValue"
+      :error-message="errorMessage"
   >
   </address-input>
 </template>
@@ -28,6 +29,10 @@
     components: {AddressInput},
     props: {
       activeValue: {
+        type: String,
+        required: false,
+      },
+      errorMessage: {
         type: String,
         required: false,
       }

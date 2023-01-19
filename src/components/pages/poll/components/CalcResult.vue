@@ -67,28 +67,40 @@
 </template>
 
 <script>
-  import Cookies from 'js-cookie';
   import price from '@/helpers/string/price';
   import term from '@/helpers/string/term';
   import date from '@/helpers/string/date';
   import inputCheckMixin from '@/mixins/inputCheck';
+  import {mapGetters} from "vuex";
 
   export default {
     mixins: [inputCheckMixin],
     data() {
       return {
-        calcSum: price(+Cookies.get('sum')).split(' ')[0],
-        calcDays: JSON.parse(Cookies.get('term')).count,
-        initCalcDays: JSON.parse(Cookies.get('term')).count,
-        calcType: JSON.parse(Cookies.get('term')).type,
-        calcDate: date(+JSON.parse(Cookies.get('term')).count, JSON.parse(Cookies.get('term')).type),
+        calcSum: null,
+        calcDays: null,
+        initCalcDays: null,
+        calcType: null,
+        calcDate: null,
         activeInput: false,
       };
     },
     computed: {
+      ...mapGetters({
+        calc: 'app/calculator',
+      }),
+      storeCount() {
+        return this.calc.term.count;
+      },
+      storeType() {
+        return this.calc.term.type;
+      },
+      storeSum() {
+        return this.calc.amount;
+      },
       loanDaysString() {
-        if (JSON.parse(Cookies.get('term')).type === 'days') {
-          return term(JSON.parse(Cookies.get('term')).count);
+        if (this.storeType === 'days') {
+          return term(this.storeCount);
         }
         return 'недель';
       },
@@ -143,16 +155,16 @@
         this.setInputWidth(this.$refs.days);
 
 
-        if(+this.calcSum === 0) this.calcSum = price(+Cookies.get('sum')).split(' ')[0];
+        if(+this.calcSum === 0) this.calcSum = price(this.storeSum).split(' ')[0];
 
-        if(+this.calcDays === 0) this.calcDays = +JSON.parse(Cookies.get('term')).count;
+        if(+this.calcDays === 0) this.calcDays = this.storeCount;
 
         //new days
         if(+this.calcDays !== +this.initCalcDays) this.calcNewDays();
 
         //new store days
         this.$store.dispatch('app/setCalculator', { amount: +this.calcSum * 1000, term: {
-           count: this.calcDays,
+           count: +this.calcDays,
            type: this.calcType,
           } });
       }
@@ -160,6 +172,12 @@
     mounted() {
       this.setInputWidth(this.$refs.sum);
       this.setInputWidth(this.$refs.days);
+    },
+    created() {
+      this.calcSum = price(this.storeSum).split(' ')[0];
+      this.calcDays = this.initCalcDays = this.storeCount;
+      this.calcType = this.storeType;
+      this.calcDate = date(this.storeCount, this.storeType);
     }
   }
 </script>

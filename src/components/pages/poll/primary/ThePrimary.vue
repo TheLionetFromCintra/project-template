@@ -6,7 +6,7 @@
           <h3 class="mob-title">Контактные данные</h3>
           <fieldset class="inputs d-flex align-items-start">
             <phone-input
-                v-model="form.phone"
+                v-model.trim="form.phone"
                 label="Номер телефона*"
                 placeholder="+7 911 111 11 11"
                 :error-message="errors.phone"
@@ -15,7 +15,7 @@
             >
             </phone-input>
             <email-input
-                v-model="form.email"
+                v-model.trim="form.email"
                 label="Электронная почта"
                 placeholder="для получения документов"
                 :error-message="errors.email"
@@ -95,7 +95,7 @@
       clearValidity(input) {
         this.errors[input] = '';
       },
-      validate() {
+      validatePrimary() {
         this.formIsValid = true;
 
         if(!this.checkEmail(this.form.email)) {
@@ -108,7 +108,7 @@
         }
       },
       async submit() {
-          this.validate();
+          this.validatePrimary();
 
           if (!this.formIsValid) {
             return;

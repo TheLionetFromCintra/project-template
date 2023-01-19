@@ -24,7 +24,6 @@
 
 <script>
   import { defineAsyncComponent } from "vue";
-  import Cookies from "js-cookie";
   import { mapGetters } from 'vuex';
 
   const VueSlider = defineAsyncComponent(() => import('vue-slider-component'));
@@ -49,10 +48,10 @@
         calculator: 'app/calculator',
       }),
       trueCountValue() {
-        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).count : this.modelValue.count;
+        return this.calculator.term.count ? +this.calculator.term.count : this.modelValue.count;
       },
       trueTypeValue() {
-        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).type : this.modelValue.type;
+        return this.calculator.term.type ? this.calculator.term.type : this.modelValue.type;
       },
       filteredLoanDays: {
         get() {

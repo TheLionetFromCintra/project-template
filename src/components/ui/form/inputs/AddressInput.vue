@@ -2,7 +2,7 @@
   <div class="box">
     <label>
       <span>{{ label }}</span>
-      <div class="wrapper">
+      <div class="wrapper" :class="{error: errorMessage}">
         <input
             ref="field"
             v-model="fieldModel"
@@ -42,7 +42,7 @@
           </ul>
         </div>
       </div>
-      <small class="err-message" v-if="errorMessage && false">{{ errorMessage }}</small>
+      <small class="err-message" v-if="errorMessage">{{ errorMessage }}</small>
     </label>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
     activeValue: {
       type: String,
       required: false,
-    }
+    },
   },
   data() {
     return {
@@ -239,6 +239,7 @@ export default {
           margin-bottom: 0;
           position: relative;
           overflow-x: hidden;
+          min-height: initial;
           &::before {
             content: '';
             position: absolute;

@@ -51,7 +51,7 @@
     border-radius: 10px;
     min-height: 354px;
     overflow: hidden;
-    padding: 42px 0 48px 0;
+    padding: 42px 42px 48px 42px;
   }
   .progress-bar {
     position: absolute;

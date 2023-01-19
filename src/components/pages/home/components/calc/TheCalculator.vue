@@ -26,12 +26,11 @@
 </template>
 
 <script>
-  import Cookies from 'js-cookie';
-
   import term from '@/helpers/string/term';
   import price from '@/helpers/string/price';
   import SumCalc from "@/components/pages/home/components/calc/SumCalc";
   import DaysCalc from "@/components/pages/home/components/calc/DaysCalc";
+  import {mapGetters} from "vuex";
 
   export default {
     components: {DaysCalc, SumCalc},
@@ -45,11 +44,14 @@
       };
     },
     computed: {
+      ...mapGetters({
+        calc: 'app/calculator',
+      }),
       trueCountValue() {
-        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).count : this.days.count;
+        return this.calc.term.count ? +this.calc.term.count : this.days.count;
       },
       trueTypeValue() {
-        return Cookies.get('term') ? JSON.parse(Cookies.get('term')).type : this.days.type;
+        return this.calc.term.type ? this.calc.term.type : this.days.type;
       },
       loanDaysString() {
         if (this.days.type === 'days') {
@@ -62,7 +64,7 @@
       }
     },
     created() {
-      this.sum = +Cookies.get('sum') || this.sum;
+      this.sum = this.calc.amount || this.sum;
       this.days = {
           type: this.trueTypeValue,
           count: this.trueCountValue

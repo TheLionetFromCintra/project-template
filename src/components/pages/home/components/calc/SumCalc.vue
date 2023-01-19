@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
-
 import { defineAsyncComponent } from "vue";
 import price from '@/helpers/string/price';
 import { mapGetters } from 'vuex';
@@ -56,7 +54,7 @@ const VueSlider = defineAsyncComponent(() => import('vue-slider-component'));
      };
    },
    created() {
-      this.loanSum = +Cookies.get('sum') || this.calculator.amount;
+      this.loanSum = this.calculator.amount;
       this.$store.dispatch('app/setCalculator', { amount: this.loanSum });
     },
    computed: {

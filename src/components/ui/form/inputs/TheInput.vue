@@ -2,7 +2,7 @@
   <div class="box">
     <label>
       <span v-if="label">{{ label }}</span>
-      <div class="wrapper">
+      <div class="wrapper" :class="{error: errorMessage}">
         <input
             :ref="refName"
             :class="className"
@@ -16,10 +16,11 @@
             autocorrect="off"
             :pattern="`${inputType === 'letter' ? '[0-9]*' : ''}`"
             :inputmode="`${inputType === 'letter' ? 'numeric' : ''}`"
+            @focus="focusEvent"
         >
       </div>
-      <small class="err-message" v-if="errorMessage && false">{{ errorMessage }}</small>
     </label>
+    <small class="err-message" v-if="errorMessage">{{ errorMessage }}</small>
   </div>
 </template>
 
@@ -30,7 +31,7 @@
 
   export default {
     mixins: [inputCheckMixin],
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'focus'],
     props: {
       modelValue: {
         type: [String, Number],
@@ -115,6 +116,9 @@
           }
         }
         this.$emit('update:modelValue', e.target.value);
+      },
+      focusEvent() {
+        this.$emit('focus');
       }
     },
     mounted() {
@@ -129,11 +133,26 @@
   .box input {
     padding: 12px 16px;
   }
-  .personal .box input {
-    max-width: 130px;
+  .inputs-wrapper, .personal {
+    .box {
+      max-width: 160px;
+      label {
+        max-width: 140px;
+      }
+    }
+  }
+  .personal {
+    .box {
+      span {
+        min-height: initial;
+      }
+    }
   }
   .card-form {
     .box {
+      span {
+        min-height: initial;
+      }
       input {
         padding: 22px;
         background-color: #EFF3F9;
@@ -169,6 +188,15 @@
     }
   }
   @media(max-width: $mobile_size) {
+    .inputs-wrapper, .personal {
+      .box {
+        max-width: 135px;
+        label {
+          min-width: 120px;
+          max-width: 130px;
+        }
+      }
+    }
     .card-form {
       .box {
         input, span {
@@ -178,6 +206,7 @@
         }
         span {
           margin-bottom: 6px;
+          min-height: initial;
         }
         input {
           max-height: 32px;

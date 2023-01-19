@@ -1,14 +1,15 @@
 <template>
   <poll-step>
     <poll-step-wrapper :current-step="currentStep" :max-step="maxStep" title="Введите данные вашей карты">
-        <the-form class="card-form">
+        <the-form class="card-form" @submit="submit">
           <template #inputs>
             <h3>Данные банковской карты</h3>
             <h4>на которую хотите получить займ</h4>
             <div class="card__wrapper">
               <div class="card__front">
                 <the-input
-                    label="Номер"
+                    v-model.trim="form.cardData.cardnumber"
+                    label="Номер*"
                     placeholder="0000 0000 0000 0000"
                     input-type="letter"
                     length="19"
@@ -19,14 +20,16 @@
                 </the-input>
                 <fieldset class="inputs d-flex align-items-center">
                   <the-input
-                      label="Владелец"
+                      v-model.trim="form.cardData.cardname"
+                      label="Владелец*"
                       placeholder="VLADIMIR KIROV"
                       input-type="number"
                       class-name="cardName"
                   >
                   </the-input>
                   <the-input
-                      label="Срок"
+                      v-model.trim="form.cardData.carddate"
+                      label="Срок*"
                       placeholder="09/25"
                       input-type="letter"
                       length="5"
@@ -39,7 +42,8 @@
               </div>
               <div class="card__back d-flex justify-content-end align-items-end">
                 <the-input
-                    label="Код"
+                    v-model.trim="form.cardcvv"
+                    label="Код*"
                     placeholder="000"
                     input-type="letter"
                     length="3"
@@ -51,11 +55,11 @@
             </div>
           </template>
           <template #default>
-            <p class="desc">Для проверки актуальности карты с нее спишется один рубль.</p>
+            <p class="desc" v-html="dictionary.cardTitle"></p>
             <div v-if="showNoCardBlock" class="no-card">
-              <router-link to="/final">У меня нет карты</router-link>
+              <router-link :to="noCardLink">У меня нет карты</router-link>
             </div>
-            <base-button class="button-main disabled" mode="green">Продолжить</base-button>
+            <base-button class="button-main" mode="green" :class="{disabled: isBtnDisabled}">Продолжить</base-button>
           </template>
         </the-form>
       </poll-step-wrapper>
@@ -68,19 +72,78 @@ import PollStepWrapper from "@/components/pages/poll/layouts/PollStepWrapper";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 import PollStep from "@/components/pages/poll/layouts/PollStep";
 
+import inputCheckMixin from "@/mixins/inputCheck";
+import sbgMixin from "@/mixins/sbg";
+import {mapGetters} from "vuex";
+
 export default {
   components: {PollStep, TheInput, TheForm, PollStepWrapper, },
+  mixins: [inputCheckMixin, sbgMixin],
   data() {
     return {
       currentStep: 3,
       maxStep: 3,
       showNoCardBlock: false,
+      formIsValid: true,
+      isBtnDisabled: true,
+      form: {
+        cardData: {
+          cardnumber: '',
+          cardname: '',
+          carddate: '',
+        },
+        cardcvv: '',
+      },
+      errors: {
+        cardnumber: '',
+        cardname: '',
+        carddate: '',
+        cardcvv: '',
+      }
     };
+  },
+  computed: {
+    ...mapGetters({
+      user: 'app/user',
+      dictionary: 'dictionary/dictionary',
+    }),
+    noCardLink() {
+      return this.isSbg ? '/final' : 'lk';
+    },
   },
   mounted() {
     setTimeout(() => {
       this.showNoCardBlock = true;
     }, 15 * 1000);
+  },
+  methods: {
+    validateCard() {
+      this.formIsValid = true;
+    },
+    submit() {
+      this.validateCard();
+
+      if (!this.formIsValid) {
+        return;
+      }
+
+      console.log(this.form);
+    }
+  },
+  watch: {
+    form: {
+      handler(val) {
+        const cardData = Object.values(val.cardData).every(item => item !== '');
+        console.log(cardData)
+
+        if(cardData && val.cardcvv !== '') {
+          this.isBtnDisabled = false;
+        } else {
+          this.isBtnDisabled = true;
+        }
+      },
+      deep: true
+    },
   }
 }
 </script>
@@ -110,8 +173,18 @@ export default {
       line-height: 24px;
       font-weight: 400;
       color: #0B161F;
-      max-width: 300px;
       margin-top: 36px;
+      text-align: left;
+
+      &::v-deep {
+        a {
+          color: $primary-blue-dark;
+          font-weight: 600;
+        }
+        p + p {
+          margin-top: 12px;
+        }
+      }
     }
     h3 + h4 {
       margin-top: 12px;
@@ -180,7 +253,6 @@ export default {
       .desc {
         font-size: 12px;
         line-height: 18px;
-        max-width: 230px;
         margin-top: 24px;
       }
     }

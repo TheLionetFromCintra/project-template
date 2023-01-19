@@ -37,7 +37,7 @@ export default {
     font-weight: 500;
     position: relative;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 18px;
     padding: 8px 22px;
     border-radius: 10px;
     color: $primary-grey;
@@ -53,5 +53,11 @@ export default {
     position: absolute;
     opacity: 0;
     z-index: -1;
+  }
+  @media(max-width: $mobile-size) {
+    .radio-wrapper span {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
 </style>
