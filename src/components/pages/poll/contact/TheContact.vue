@@ -113,19 +113,8 @@ import Store from '@/store';
 import {mapGetters} from "vuex";
 import inputCheckMixin from "@/mixins/inputCheck";
 import sbgMixin from "@/mixins/sbg";
+import validationMixin from "@/mixins/validation";
 
-const date = new Date();
-
-const year = date.getFullYear();
-const month = date.getMonth() + 1;
-const day = date.getDate();
-
-const MAX_BORROWER_OLD = 90
-const MIN_BORROWER_OLD = 18
-
-const MAX_BORROWER_YEAR = `${day}.${month}.${year-MAX_BORROWER_OLD}`
-const MIN_BORROWER_YEAR = `${day}.${month}.${year-MIN_BORROWER_OLD}`
-const TODAY = `${day}.${month}.${year}`;
 
 export default {
   components: {
@@ -133,7 +122,7 @@ export default {
     AddressWrapper,
     TheInput, RadioButtonGroup, TheForm, PollStepWrapper
   },
-  mixins: [inputCheckMixin, sbgMixin],
+  mixins: [inputCheckMixin, sbgMixin, validationMixin],
   data() {
     return {
       currentStep: 2,
@@ -145,7 +134,6 @@ export default {
         key: '1',
         value: 'Ж'
       }],
-      formIsValid: true,
       isBtnDisabled: true,
       form: {
         contactData: {
@@ -196,60 +184,6 @@ export default {
     }
   },
   methods: {
-    clearValidity(input) {
-      this.errors[input] = '';
-    },
-    validateContact() {
-      this.formIsValid = true;
-
-      if(!this.checkDirty(this.fullname)) {
-        this.formIsValid = false;
-        this.errors.fullname = 'Нецензурная лексика';
-      } else if(this.form.contactData.firstname === '' || this.form.contactData.lastname === '') {
-        this.formIsValid = false;
-        this.errors.fullname = 'Укажите полное ФИО';
-      } else if(!this.checkLang(this.fullname)) {
-        this.formIsValid = false;
-        this.errors.fullname = 'Допустимы только русские буквы, дефис и апостроф';
-      } else if(!this.checkLength(this.form.contactData.firstname, 2) || !this.checkLength(this.form.contactData.lastname, 2) || !this.checkLength(this.form.contactData.patronymic, 2)) {
-        this.formIsValid = false;
-        this.errors.fullname = 'Мин. кол-во символов - 2';
-      }
-
-      if(!this.checkLength(this.form.contactData.birthday, 10)) {
-        this.formIsValid = false;
-        this.errors.birthday = 'Дата указана не полностью';
-      } else if(!this.checkDateLess(this.form.contactData.birthday, MIN_BORROWER_YEAR)) {
-        this.formIsValid = false;
-        this.errors.birthday = this.isSbg ? `Мы не выдаем займ лицам не достигшим ${MIN_BORROWER_OLD} лет` : `Минимальный возраст застрахованного лица - ${MIN_BORROWER_OLD} лет`;
-      } else if(!this.checkDateMore(this.form.contactData.birthday, MAX_BORROWER_YEAR)) {
-        this.formIsValid = false;
-        this.errors.birthday = this.isSbg ? `Возраст заемщика не должен превышать ${MAX_BORROWER_OLD} лет` : `Мы не страхуем лица страше ${MAX_BORROWER_OLD} лет`;
-      }
-
-      if(!this.checkLength(this.form.passportData.passportseries, 5)) {
-        this.formIsValid = false;
-        this.errors.passportseries = 'Мин. кол-во символов - 4';
-      }
-
-      if(!this.checkLength(this.form.passportData.passportnumber, 7)) {
-        this.formIsValid = false;
-        this.errors.passportnumber = 'Мин. кол-во символов - 6';
-      }
-
-      if(!this.checkLength(this.form.passportData.passportdate, 10)) {
-        this.formIsValid = false;
-        this.errors.passportdate = 'Дата указана не полностью';
-      } else if(!this.checkDateLess(this.form.passportData.passportdate, TODAY)) {
-        this.formIsValid = false;
-        this.errors.passportdate = 'Дата не может быть больше текущей';
-      }
-
-      if(!this.checkLength(this.form.passportData.passportcode, 7)) {
-        this.formIsValid = false;
-        this.errors.passportcode = 'Мин. кол-во символов - 6';
-      }
-    },
     async submit() {
       this.validateContact();
 

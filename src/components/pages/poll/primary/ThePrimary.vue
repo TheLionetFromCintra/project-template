@@ -59,10 +59,11 @@
   // import Storage from '@/ext/storage/storage';
 
   import {mapGetters} from "vuex";
+  import validationMixin from "@/mixins/validation";
 
   export default {
     components: { PollStep, TheCheckbox, PhoneInput, EmailInput, TheForm, PollStepWrapper },
-    mixins: [inputCheckMixin, sbgMixin],
+    mixins: [inputCheckMixin, sbgMixin, validationMixin],
     data() {
       return {
         currentStep: 1,
@@ -78,7 +79,6 @@
           email: '',
           phone: ''
         },
-        formIsValid: true,
       };
     },
     computed: {
@@ -92,21 +92,6 @@
       this.form.email = this.user.contactData.email ? this.user.contactData.email : '';
     },
     methods: {
-      clearValidity(input) {
-        this.errors[input] = '';
-      },
-      validatePrimary() {
-        this.formIsValid = true;
-
-        if(!this.checkEmail(this.form.email)) {
-          this.formIsValid = false;
-          this.errors.email = 'Некорректный формат почты';
-        }
-        if(!this.checkPhone(this.form.phone)) {
-          this.formIsValid = false;
-          this.errors.phone = 'Некорректный формат номера телефона';
-        }
-      },
       async submit() {
           this.validatePrimary();
 

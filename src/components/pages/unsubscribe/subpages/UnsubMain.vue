@@ -7,15 +7,17 @@
         <template #inputs>
           <fieldset class="inputs d-flex align-items-start justify-content-center">
             <phone-input
+                v-model="form.phone"
                 label="Номер телефона:"
                 placeholder="+7 911 111 11 11"
-                error-message="Неверный формат"
+                :error-message="errors.phone"
+                @focus="clearValidity('phone')"
             >
             </phone-input>
           </fieldset>
         </template>
         <template #default>
-          <base-button class="button-main" mode="green">Продолжить</base-button>
+          <base-button class="button-main" mode="green" :class="{disabled: isBtnDisabled}">Продолжить</base-button>
         </template>
       </the-form>
     </div>
@@ -24,18 +26,31 @@
 <script>
 import TheForm from "@/components/ui/form/TheForm";
 import PhoneInput from "@/components/ui/form/inputs/PhoneInput";
+import validationMixin from "@/mixins/validation";
+import inputCheckMixin from "@/mixins/inputCheck";
 
 export  default {
   components: {TheForm, PhoneInput},
+  mixins: [validationMixin, inputCheckMixin],
   data() {
     return {
       form: {
-        phone: '+7 910 123 94 05',
-      }
+        phone: '',
+      },
+      errors: {
+        phone: '',
+      },
+      isBtnDisabled: true,
     };
   },
   methods: {
     submit() {
+      this.validatePrimary();
+
+      if (!this.formIsValid) {
+        return;
+      }
+
       this.$router.push({
         name: 'UnsubSuccess',
         params: {
@@ -44,6 +59,14 @@ export  default {
         }
       });
     }
+  },
+  watch: {
+    form: {
+      handler(val) {
+        this.isBtnDisabled = !(val.phone !== '');
+      },
+      deep: true
+    },
   }
 }
 </script>

@@ -11,8 +11,7 @@
     align-items: flex-end;
     margin-bottom: 12px;
     font-weight: 600;
-    min-height: 38px;
-
+    //min-height: 38px;
   }
   span, input{
     font-size: 16px;
@@ -66,7 +65,7 @@
   .wrapper {
     position: relative;
     &.error input {
-      border-color: #EB5757;
+      border-color: #EB5757 !important;
     }
   }
 }

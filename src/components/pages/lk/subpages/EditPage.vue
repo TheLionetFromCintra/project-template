@@ -2,21 +2,25 @@
   <cabinet-page-wrapper title="Редактировать данные">
     <template #content>
       <div class="content">
-        <the-form @submit="submit">
+        <the-form class="edit" @submit="submit">
           <template #inputs>
             <fieldset class="d-flex align-items-start justify-content-center">
               <the-input
-                  v-model.trim="form.lastname"
-                  label="Фамилия"
+                  v-model.trim="form.contactData.lastname"
+                  label="Фамилия*"
                   placeholder="Иванов"
                   input-type="number"
+                  :error-message="errors.lastname"
+                  @focus="clearValidity('lastname')"
               >
               </the-input>
               <the-input
-                  v-model.trim="form.firstname"
-                  label="Имя"
+                  v-model.trim="form.contactData.firstname"
+                  label="Имя*"
                   placeholder="Иван"
                   input-type="number"
+                  :error-message="errors.firstname"
+                  @focus="clearValidity('firstname')"
               >
               </the-input>
             </fieldset>
@@ -26,88 +30,104 @@
                   label="Отчество (если есть)"
                   placeholder="Иванович"
                   input-type="number"
+                  :error-message="errors.patronymic"
+                  @focus="clearValidity('patronymic')"
               >
               </the-input>
               <email-input
-                  v-model.trim="form.email"
-                  label="E-mail"
+                  v-model.trim="form.contactData.email"
+                  label="E-mail*"
                   placeholder="user@mail.ru"
+                  :error-message="errors.email"
+                  @focus="clearValidity('email')"
               >
               </email-input>
             </fieldset>
             <fieldset class="gender d-flex align-items-start justify-content-start">
               <the-input
-                  v-model.trim="form.birthday"
-                  label="Дата рождения:"
+                  v-model.trim="form.contactData.birthday"
+                  label="Дата рождения*"
                   placeholder="дд.мм.гггг"
                   length="10"
                   input-type="letter"
                   mask="##.##.####"
                   date-type="date"
+                  :error-message="errors.birthday"
+                  @focus="clearValidity('birthday')"
               >
               </the-input>
               <div class="gender-box">
                 <radio-button-group
                     v-model.trim="form.gender"
                     :options="options"
-                    label="Пол:"
+                    label="Пол"
                     :active-gender="form.gender"
                 >
                 </radio-button-group>
               </div>
             </fieldset>
-            <div class="passport d-flex align-items-end">
-              <fieldset class="d-flex align-items-end">
+            <div class="passport d-flex align-items-start">
+              <fieldset class="d-flex align-items-start">
                 <the-input
-                    v-model.trim="form.passportseries"
-                    label="Серия:"
+                    v-model.trim="form.passportData.passportseries"
+                    label="Серия*"
                     placeholder="2220"
                     length="5"
                     input-type="letter"
                     mask="## ##"
+                    :error-message="errors.passportseries"
+                    @focus="clearValidity('passportseries')"
                 >
                 </the-input>
                 <the-input
-                    v-model.trim="form.passportnumber"
-                    label="Номер:"
+                    v-model.trim="form.passportData.passportnumber"
+                    label="Номер*"
                     placeholder="123456"
                     length="7"
                     input-type="letter"
                     mask="### ###"
+                    :error-message="errors.passportnumber"
+                    @focus="clearValidity('passportnumber')"
                 >
                 </the-input>
               </fieldset>
-              <fieldset class="d-flex align-items-end">
+              <fieldset class="d-flex align-items-start">
                 <the-input
-                    v-model.trim="form.passportdate"
-                    label="Дата выдачи:"
+                    v-model.trim="form.passportData.passportdate"
+                    label="Дата выдачи*"
                     placeholder="дд.мм.гггг"
                     length="10"
                     input-type="letter"
                     mask="##.##.####"
                     date-type="date"
+                    :error-message="errors.passportdate"
+                    @focus="clearValidity('passportdate')"
                 >
                 </the-input>
                 <the-input
-                    v-model.trim="form.passportcode"
-                    label="Код подразделения:"
+                    v-model.trim="form.passportData.passportcode"
+                    label="Код подразделения*"
                     placeholder="900-002"
                     length="7"
                     input-type="letter"
                     mask="###-###"
+                    :error-message="errors.passportcode"
+                    @focus="clearValidity('passportcode')"
                 >
                 </the-input>
               </fieldset>
             </div>
             <fieldset class="address">
               <address-wrapper
-                  v-model.trim="form.passportaddress"
-                  :active-value="form.passportaddress"
+                  v-model.trim="form.passportData.passportaddress"
+                  :active-value="form.passportData.passportaddress"
+                  :error-message="errors.passportaddress"
+                  @focus="clearValidity('passportaddress')"
               ></address-wrapper>
             </fieldset>
           </template>
           <template #default>
-            <base-button class="button-main" mode="green">Обновить</base-button>
+            <base-button class="button-main" mode="green" :class="{disabled: isBtnDisabled}">Обновить</base-button>
           </template>
         </the-form>
       </div>
@@ -116,29 +136,50 @@
 </template>
 <script>
 import CabinetPageWrapper from "@/components/pages/lk/layouts/CabinetPageWrapper";
-import {mapGetters} from "vuex";
 import TheForm from "@/components/ui/form/TheForm";
 import TheInput from "@/components/ui/form/inputs/TheInput";
 import EmailInput from "@/components/ui/form/inputs/EmailInput";
 import RadioButtonGroup from "@/components/ui/form/inputs/radio/RadioButtonGroup";
 import AddressWrapper from "@/components/pages/poll/components/AddressWrapper";
 
+import inputCheckMixin from "@/mixins/inputCheck";
+import sbgMixin from "@/mixins/sbg";
+import validationMixin from "@/mixins/validation";
+import {mapGetters} from "vuex";
+
 export default {
   components: {AddressWrapper, RadioButtonGroup, EmailInput, TheInput, TheForm, CabinetPageWrapper},
+  mixins: [inputCheckMixin, sbgMixin, validationMixin],
   data() {
     return {
       form: {
+        patronymic: '',
+        gender: '',
+        contactData: {
+          birthday: '',
+          firstname: '',
+          lastname: '',
+          email: '',
+        },
+        passportData: {
+          passportcode: '',
+          passportnumber: '',
+          passportseries: '',
+          passportdate: '',
+          passportaddress: '',
+        },
+      },
+      errors: {
         firstname: '',
         lastname: '',
         patronymic: '',
-        email: '',
         birthday: '',
-        gender: '',
         passportseries: '',
         passportnumber: '',
-        passportcode: '',
         passportdate: '',
-        passportaddress: ''
+        passportcode: '',
+        passportaddress: '',
+        email: '',
       },
       options: [{
         key: '0',
@@ -147,6 +188,7 @@ export default {
         key: '1',
         value: 'Ж'
       }],
+      isBtnDisabled: true,
     };
   },
   computed: {
@@ -155,24 +197,48 @@ export default {
     }),
   },
   created() {
-    this.form.firstname = this.user.contactData.firstname;
-    this.form.lastname = this.user.contactData.lastname;
+    this.form.contactData.firstname = this.user.contactData.firstname;
+    this.form.contactData.lastname = this.user.contactData.lastname;
     this.form.patronymic = this.user.contactData.patronymic;
-    this.form.email = this.user.contactData.email;
-    this.form.birthday = this.user.contactData.birthday;
+    this.form.contactData.email = this.user.contactData.email;
+    this.form.contactData.birthday = this.user.contactData.birthday;
     this.form.gender = this.user.contactData.gender;
 
-    this.form.passportseries = this.user.passportData.passportseries;
-    this.form.passportnumber = this.user.passportData.passportnumber;
-    this.form.passportcode = this.user.passportData.passportcode;
-    this.form.passportdate = this.user.passportData.passportdate;
-    this.form.passportaddress = this.user.passportData.passportaddress;
+    this.form.passportData.passportseries = this.user.passportData.passportseries;
+    this.form.passportData.passportnumber = this.user.passportData.passportnumber;
+    this.form.passportData.passportcode = this.user.passportData.passportcode;
+    this.form.passportData.passportdate = this.user.passportData.passportdate;
+    this.form.passportData.passportaddress = this.user.passportData.passportaddress;
   },
   methods: {
     submit() {
+      this.validateContact();
+      this.validateFIO(this.form.contactData.firstname, 'firstname');
+      this.validateFIO(this.form.contactData.lastname, 'lastname');
+      this.validateFIO(this.form.patronymic, 'patronymic');
+
+      if (!this.formIsValid) {
+        return;
+      }
+
       console.log(this.form);
     },
-  }
+  },
+  watch: {
+    form: {
+      handler(val) {
+        const contactData = Object.values(val.contactData).every(item => item !== '');
+        const passportData = Object.values(val.passportData).every(item => item !== '');
+
+        if(contactData && passportData) {
+          this.isBtnDisabled = false;
+        } else {
+          this.isBtnDisabled = true;
+        }
+      },
+      deep: true
+    },
+  },
 }
 </script>
 
@@ -187,7 +253,7 @@ export default {
 form {
   align-items: flex-start !important;
   width: 100%;
-  max-width: 624px;
+  max-width: 628px;
   .box {
     width: 100%;
     max-width: 292px;
@@ -217,6 +283,10 @@ form {
   }
   .passport {
     margin: 24px 0;
+    fieldset{
+      width: 100%;
+      max-width: 292px;
+    }
     fieldset + fieldset {
       margin: 0 0 0 40px;
     }
@@ -237,6 +307,7 @@ form {
     max-width: 552px;
     fieldset {
       flex-direction: column;
+      justify-content: flex-start;
       .box + .box {
         margin: 24px 0 0 0;
       }
@@ -249,7 +320,6 @@ form {
     }
     .gender {
       flex-direction: row;
-      align-items: flex-end !important;
       .gender-box {
         margin-left: 24px;
       }
@@ -261,7 +331,16 @@ form {
         flex-direction: row;
       }
       .box {
-        max-width: 100%;
+        margin-top: auto;
+        max-width: 50%;
+      }
+      .box + .box {
+        margin-left: 24px;
+      }
+      fieldset:first-child {
+        .box + .box {
+          margin-top: 0;
+        }
       }
       fieldset + fieldset {
         margin: 0;
@@ -279,22 +358,6 @@ form {
 @media(max-width: 374px) {
   .content {
     padding: 42px 24px 48px 24px;
-  }
-  .form {
-    .passport {
-      fieldset {
-        &:first-child {
-          .box:last-child {
-            min-width: 138px;
-          }
-        }
-        &:last-child {
-          .box:first-child {
-            min-width: 110px;
-          }
-        }
-      }
-    }
   }
 }
 </style>

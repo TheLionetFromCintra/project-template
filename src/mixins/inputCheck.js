@@ -123,10 +123,15 @@ export default {
         checkDirty(value) {
             return filthy(value);
         },
-        checkLang(value) {
-            const regExp = new RegExp(/^[?!_',.а-яА-ЯёЁ0-9\s]+$/);
-            const ruWord = regExp.test(value);
-            return ruWord;
+        checkLang(value, lang) {
+            let regExp;
+            if(lang === 'ru') {
+                regExp = new RegExp(/^[?!_',.а-яА-ЯёЁ0-9\s]+$/);
+            } else {
+                regExp = new RegExp(/^[?!_',.a-zA-Z0-9\s]+$/);
+            }
+            const word = regExp.test(value);
+            return word;
         },
         checkDateLess(value, minYear) {
             let [dayLess, monthLess, yearLess] = minYear.split('.').map(dateMap);

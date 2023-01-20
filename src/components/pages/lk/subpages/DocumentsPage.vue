@@ -4,7 +4,7 @@
       <div class="content">
         <ul class="list">
           <li
-              v-for="(document, index) in docs"
+              v-for="(document, index) in dictionary.profileDocuments"
               :key="index"
               class="item"
           >
@@ -23,26 +23,15 @@
 
 <script>
   import CabinetPageWrapper from "@/components/pages/lk/layouts/CabinetPageWrapper";
+  import {mapGetters} from "vuex";
+
   export default {
     components: {CabinetPageWrapper},
-    data() {
-      return {
-        docs: [
-          {
-            link: 'test-link',
-            title: 'Соглашение на обработку персональных данных',
-          },
-          {
-            link: 'test-link',
-            title: 'Соглашение на получение рекламных материалов',
-          },
-          {
-            link: 'test-link',
-            title: 'Защита от непредвиденных ситуаций',
-          },
-        ],
-      };
-    }
+    computed: {
+      ...mapGetters({
+        dictionary: 'dictionary/dictionary',
+      }),
+    },
   }
 </script>
 

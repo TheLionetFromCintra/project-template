@@ -18,11 +18,11 @@ export default {
                     gender: '',
                     lastname: '',
                     patronymic: '',
-                    phone: '+7 999 999 90 90',
+                    phone: '',
                 },
                 passportData: {
                     passportcode: '',
-                    passportnumber: '',
+                    passportnumber: '435 345',
                     passportseries: '',
                     passportdate: '',
                     passportaddress: '',

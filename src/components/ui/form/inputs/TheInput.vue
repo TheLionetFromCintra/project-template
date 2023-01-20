@@ -20,7 +20,7 @@
         >
       </div>
     </label>
-    <small class="err-message" v-if="errorMessage">{{ errorMessage }}</small>
+    <small class="err-message" v-if="activeError && errorMessage">{{ errorMessage }}</small>
   </div>
 </template>
 
@@ -81,6 +81,10 @@
         type: String,
         required: false,
       },
+      activeError: {
+        type: Boolean,
+        default: true,
+      },
     },
     methods: {
       initInput(e) {
@@ -106,8 +110,9 @@
         }
         //check card date
         if(this.className === 'cardDate') {
-          if (!e.target.value.length)
+          if (!e.target.value.length) {
             return;
+          }
 
           const [month] = e.target.value.split('/');
 
@@ -133,6 +138,13 @@
   .box input {
     padding: 12px 16px;
   }
+  .inputs-wrapper, .passport {
+    .box {
+      span {
+        min-height: 38px;
+      }
+    }
+  }
   .inputs-wrapper, .personal {
     .box {
       max-width: 160px;
@@ -141,18 +153,14 @@
       }
     }
   }
-  .personal {
+  .passport {
     .box {
-      span {
-        min-height: initial;
+      max-width: 50%;
+      label {
+        max-width: 140px;
       }
     }
-  }
   .card-form {
-    .box {
-      span {
-        min-height: initial;
-      }
       input {
         padding: 22px;
         background-color: #EFF3F9;
@@ -194,6 +202,28 @@
         label {
           min-width: 120px;
           max-width: 130px;
+        }
+        span {
+          min-height: initial;
+        }
+      }
+    }
+    .inputs-wrapper {
+      fieldset:last-child {
+        .box {
+          span {
+            min-height: 34px;
+          }
+        }
+      }
+    }
+    .passport {
+      .box {
+        label {
+          max-width: 100%;
+        }
+        span {
+          min-height: initial;
         }
       }
     }

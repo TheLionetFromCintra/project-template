@@ -16,6 +16,9 @@
                     mask="#### #### #### ####"
                     focus-next="cardName"
                     class-name="cardNumber"
+                    :error-message="errors.cardnumber"
+                    :active-error="false"
+                    @focus="clearValidityCard('cardnumber')"
                 >
                 </the-input>
                 <fieldset class="inputs d-flex align-items-center">
@@ -25,6 +28,9 @@
                       placeholder="VLADIMIR KIROV"
                       input-type="number"
                       class-name="cardName"
+                      :error-message="errors.cardname"
+                      :active-error="false"
+                      @focus="clearValidityCard('cardname')"
                   >
                   </the-input>
                   <the-input
@@ -36,6 +42,9 @@
                       mask="##/##"
                       focus-next="cardCVV"
                       class-name="cardDate"
+                      :error-message="errors.carddate"
+                      :active-error="false"
+                      @focus="clearValidityCard('carddate')"
                   >
                   </the-input>
                 </fieldset>
@@ -49,12 +58,20 @@
                     length="3"
                     type="password"
                     class-name="cardCVV"
+                    :error-message="errors.cardcvv"
+                    :active-error="false"
+                    @focus="clearValidityCard('cardcvv')"
                 >
                 </the-input>
               </div>
             </div>
           </template>
           <template #default>
+            <div class="errors" v-if="Object.keys(errors).length !== 0">
+              <p v-for="error in errors" :key="error">
+                {{ error }}
+              </p>
+            </div>
             <p class="desc" v-html="dictionary.cardTitle"></p>
             <div v-if="showNoCardBlock" class="no-card">
               <router-link :to="noCardLink">У меня нет карты</router-link>
@@ -75,16 +92,18 @@ import PollStep from "@/components/pages/poll/layouts/PollStep";
 import inputCheckMixin from "@/mixins/inputCheck";
 import sbgMixin from "@/mixins/sbg";
 import {mapGetters} from "vuex";
+import Store from '@/store';
+import validationMixin from "@/mixins/validation";
+
 
 export default {
   components: {PollStep, TheInput, TheForm, PollStepWrapper, },
-  mixins: [inputCheckMixin, sbgMixin],
+  mixins: [inputCheckMixin, sbgMixin, validationMixin],
   data() {
     return {
       currentStep: 3,
       maxStep: 3,
       showNoCardBlock: false,
-      formIsValid: true,
       isBtnDisabled: true,
       form: {
         cardData: {
@@ -94,12 +113,7 @@ export default {
         },
         cardcvv: '',
       },
-      errors: {
-        cardnumber: '',
-        cardname: '',
-        carddate: '',
-        cardcvv: '',
-      }
+      errors: {},
     };
   },
   computed: {
@@ -117,9 +131,6 @@ export default {
     }, 15 * 1000);
   },
   methods: {
-    validateCard() {
-      this.formIsValid = true;
-    },
     submit() {
       this.validateCard();
 
@@ -128,15 +139,14 @@ export default {
       }
 
       console.log(this.form);
-    }
+    },
   },
   watch: {
     form: {
       handler(val) {
         const cardData = Object.values(val.cardData).every(item => item !== '');
-        console.log(cardData)
 
-        if(cardData && val.cardcvv !== '') {
+        if(cardData && val.cardcvv !== '' && +val.cardData.carddate !== 1) {
           this.isBtnDisabled = false;
         } else {
           this.isBtnDisabled = true;
@@ -144,6 +154,32 @@ export default {
       },
       deep: true
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    const {
+      allow
+    } = to.params;
+
+    const {
+      passportData: {
+        passportnumber,
+      },
+      isSubscribed,
+      isSigned
+    } = Store.getters['app/user'];
+
+    if (isSubscribed) {
+      // Store.commit('application/load', false)
+      next({ name: 'PersonalProfile' });
+      return;
+    }
+
+    if (isSigned && allow || passportnumber) {
+      next();
+    } else {
+      // Store.commit('application/load', false);
+      next({ name: 'LoanContact' });
+    }
   }
 }
 </script>
@@ -189,13 +225,40 @@ export default {
     h3 + h4 {
       margin-top: 12px;
     }
+    .errors {
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 18px;
+      padding-left: 30px;
+      position: relative;
+      color: #EB5757;
+      width: 100%;
+      &::before {
+        content: "!";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #EB5757;
+        color: $primary-white;
+        font-size: 18px;
+        position: absolute;
+        top: 1px;
+        left: 0;
+      }
+      p + p {
+        margin-top: 6px;
+      }
+    }
   }
   .card__wrapper {
     margin-top: 36px;
   }
   .card__front, .card__back {
     width: 430px;
-    height: 276px;
+    min-height: 276px;
     border-radius: 10px;
     position: relative;
   }
@@ -261,7 +324,7 @@ export default {
     }
     .card__front, .card__back {
       width: 79%;
-      height: 153px;
+      min-height: 153px;
     }
     .card__front {
       padding: 20px 20px 18px 20px;

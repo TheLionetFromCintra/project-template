@@ -18,12 +18,13 @@ const router = createRouter({
         },
         { path: "/primary", name: 'LoanPrimary', component: () => import("@/components/pages/poll/primary/ThePrimary")},
         { path: "/verificate", component: () => import("@/components/pages/poll/primary/PhoneAuth") },
-        { path: "/contact", component: () => import("@/components/pages/poll/contact/TheContact") },
+        { path: "/contact", name: 'LoanContact', component: () => import("@/components/pages/poll/contact/TheContact") },
         { path: "/card", component: () => import("@/components/pages/poll/card/TheCard") },
         {
           path: "/lk",
           component: () => import("@/components/pages/lk/TheCabinet"),
           redirect: '/lk/profile',
+          name: 'PersonalProfile',
           children: [
               { path: "profile", component: () => import("@/components/pages/lk/subpages/ProfilePage") },
               { path: "edit", component: () => import("@/components/pages/lk/subpages/EditPage") },
