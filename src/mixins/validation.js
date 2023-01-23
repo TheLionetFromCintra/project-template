@@ -35,25 +35,58 @@ export default {
                 this.errors = {};
             }
         },
+        validatePhone(field, error) {
+            if(!this.checkPhone(field)) {
+                this.formIsValid = false;
+                this.errors[error] = 'Некорректный формат номера телефона';
+            }
+        },
+        validateEmail(field, error) {
+            if(!this.checkEmail(field)) {
+                this.formIsValid = false;
+                this.errors[error] = 'Некорректный формат почты';
+            }
+        },
+        validateFIO(field, error) {
+            if(!this.checkDirty(field) && field) {
+                this.formIsValid = false;
+                this.errors[error] = 'Нецензурная лексика';
+            }  else if(!this.checkLang(field, 'ru') && field) {
+                this.formIsValid = false;
+                this.errors[error] = 'Допустимы только русские буквы, дефис и апостроф';
+            } else if(!this.checkLength(field, 2) && field) {
+                this.formIsValid = false;
+                this.errors[error] = 'Мин. кол-во символов - 2';
+            }
+        },
+        validationDate(date) {
+            if (date.length) {
+                let [month, year = ''] = date.split('/');
+
+                let yearStart = +(String(currentYear).substr(0, 2));
+
+                year = `${yearStart}${year}`;
+                date = `01.${month}.${year}`;
+
+                return date;
+            }
+        },
+        validateLengthField(field, error, length, symbols) {
+            if(!this.checkLength(field, length)) {
+                this.formIsValid = false;
+                this.errors[error] = `Мин. кол-во символов - ${symbols}`;
+            }
+        },
         validatePrimary() {
             this.formIsValid = true;
 
-            if(!this.checkEmail(this.form.email) && this.form.email) {
-                this.formIsValid = false;
-                this.errors.email = 'Некорректный формат почты';
-            }
-            if(!this.checkPhone(this.form.phone)) {
-                this.formIsValid = false;
-                this.errors.phone = 'Некорректный формат номера телефона';
-            }
+            this.validateEmail(this.form.email, 'email');
+            this.validatePhone(this.form.phone, 'phone');
         },
         validateContact() {
             this.formIsValid = true;
 
-            if(!this.checkEmail(this.form.contactData.email) && this.form.contactData.email) {
-                this.formIsValid = false;
-                this.errors.email = 'Некорректный формат почты';
-            }
+            this.validateEmail(this.form.contactData.email, 'email');
 
             if(!this.checkDirty(this.fullname)) {
                 this.formIsValid = false;
@@ -80,15 +113,9 @@ export default {
                 this.errors.birthday = this.isSbg ? `Возраст заемщика не должен превышать ${MAX_BORROWER_OLD} лет` : `Мы не страхуем лица страше ${MAX_BORROWER_OLD} лет`;
             }
 
-            if(!this.checkLength(this.form.passportData.passportseries, 5)) {
-                this.formIsValid = false;
-                this.errors.passportseries = 'Мин. кол-во символов - 4';
-            }
+            this.validateLengthField(this.form.passportData.passportseries, 'passportseries', 5,4);
 
-            if(!this.checkLength(this.form.passportData.passportnumber, 7)) {
-                this.formIsValid = false;
-                this.errors.passportnumber = 'Мин. кол-во символов - 6';
-            }
+            this.validateLengthField(this.form.passportData.passportnumber, 'passportnumber', 7,6);
 
             if(!this.checkLength(this.form.passportData.passportdate, 10)) {
                 this.formIsValid = false;
@@ -98,10 +125,7 @@ export default {
                 this.errors.passportdate = 'Дата не может быть больше текущей';
             }
 
-            if(!this.checkLength(this.form.passportData.passportcode, 7)) {
-                this.formIsValid = false;
-                this.errors.passportcode = 'Мин. кол-во символов - 6';
-            }
+            this.validateLengthField(this.form.passportData.passportcode, 'passportcode', 7,6);
         },
         validateCard() {
             this.formIsValid = true;
@@ -117,10 +141,10 @@ export default {
             if(!this.checkLength(this.form.cardData.carddate, 5)) {
                 this.formIsValid = false;
                 this.errors.carddate = 'Срок указан не полностью';
-            } else if(!this.checkDateLess(this.validationData(this.form.cardData.carddate), MAX_CARD_DATE)) {
+            } else if(!this.checkDateLess(this.validationDate(this.form.cardData.carddate), MAX_CARD_DATE)) {
                 this.formIsValid = false;
                 this.errors.carddate = `Мы принимаем карты сроком до ${ALLOW_CARD_YEARS} лет`;
-            } else if(!this.checkDateMore(this.validationData(this.form.cardData.carddate), TODAY_CARD)) {
+            } else if(!this.checkDateMore(this.validationDate(this.form.cardData.carddate), TODAY_CARD)) {
                 this.formIsValid = false;
                 this.errors.carddate = 'Карта просрочена';
             }
@@ -133,34 +157,16 @@ export default {
                 this.errors.cardname = 'Мин. кол-во символов - 2';
             }
 
-            if(!this.checkLength(this.form.cardcvv, 3)) {
-                this.formIsValid = false;
-                this.errors.cardcvv = 'Мин. кол-во символов - 3';
-            }
+            this.validateLengthField(this.form.cardcvv, 'cardcvv', 3,3);
         },
-        validationData(date) {
-            if (date.length) {
-                let [month, year = ''] = date.split('/');
+        validationUnsub() {
+            this.formIsValid = true;
 
-                let yearStart = +(String(currentYear).substr(0, 2));
+            this.validatePhone(this.form.requiredFields.phone_fio, 'phone_fio');
 
-                year = `${yearStart}${year}`;
-                date = `01.${month}.${year}`;
+            this.validateLengthField(this.form.requiredFields.pan_first, 'pan_first', 6,6);
 
-                return date;
-            }
-        },
-        validateFIO(field, error) {
-            if(!this.checkDirty(field)) {
-                this.formIsValid = false;
-                this.errors[error] = 'Нецензурная лексика';
-            }  else if(!this.checkLang(field, 'ru')) {
-                this.formIsValid = false;
-                this.errors[error] = 'Допустимы только русские буквы, дефис и апостроф';
-            } else if(!this.checkLength(field, 2)) {
-                this.formIsValid = false;
-                this.errors[error] = 'Мин. кол-во символов - 2';
-            }
+            this.validateLengthField(this.form.requiredFields.pan_last, 'pan_last', 4,4);
         }
     }
 }

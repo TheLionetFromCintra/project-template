@@ -41,8 +41,8 @@ const router = createRouter({
           children: [
               { path: "main", name: 'Unsubscribe', component: () => import("@/components/pages/unsubscribe/subpages/UnsubMain") },
               { path: "success", name: 'UnsubSuccess', component: () => import("@/components/pages/unsubscribe/subpages/UnsubSuccess") },
-              { path: "info", component: () => import("@/components/pages/unsubscribe/subpages/UnsubInfo") },
-              { path: "code", component: () => import("@/components/pages/lk/subpages/DocumentsPage") },
+              { path: "info", name: 'UnsubInfo', component: () => import("@/components/pages/unsubscribe/subpages/UnsubInfo") },
+              { path: "code", name: 'UnsubCode', component: () => import("@/components/pages/unsubscribe/subpages/UnsubCode") },
           ],
         },
         { path: "/ticket/:uid", component: () => import("@/components/pages/ticket/TheTicket") },

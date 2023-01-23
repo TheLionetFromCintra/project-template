@@ -65,10 +65,29 @@
   border-color: #EB5757 !important;
 }
 
+.card-form input {
+  padding: 22px;
+  background-color: #EFF3F9;
+  border: 1px solid rgba(33, 52, 142, 0.5);
+  box-shadow: none;
+  text-transform: uppercase;
+  transition: border-color 0.3s linear;
+  min-height: 63px;
+}
+.card-form input::placeholder {
+  font-weight: 600;
+}
+.card-form input:focus {
+  border: 1px solid #21348e;
+}
+
 @media (max-width: 768px) {
   .box span, .box input {
     font-size: 14px;
     line-height: 17px;
+  }
+  .card-form .box input {
+    min-height: initial;
   }
 }
 

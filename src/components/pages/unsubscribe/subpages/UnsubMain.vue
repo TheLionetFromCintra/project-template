@@ -52,7 +52,7 @@ export  default {
       }
 
       this.$router.push({
-        name: 'UnsubSuccess',
+        name: 'UnsubCode',
         params: {
           // info,
           phone: this.form.phone
@@ -67,7 +67,7 @@ export  default {
       },
       deep: true
     },
-  }
+  },
 }
 </script>
 

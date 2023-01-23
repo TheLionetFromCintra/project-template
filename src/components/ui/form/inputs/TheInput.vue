@@ -160,22 +160,6 @@
         max-width: 140px;
       }
     }
-  .card-form {
-      input {
-        padding: 22px;
-        background-color: #EFF3F9;
-        border: 1px solid rgba(#21348E, 0.5);
-        box-shadow: none;
-        text-transform: uppercase;
-        transition: border-color 0.3s linear;
-        &::placeholder {
-          font-weight: 600;
-        }
-        &:focus {
-          border: 1px solid rgba(#21348E, 1);
-        }
-      }
-    }
     .card__back {
       .box span {
         color: $primary-white;

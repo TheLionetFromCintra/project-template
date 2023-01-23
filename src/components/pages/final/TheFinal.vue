@@ -15,6 +15,8 @@
 import PollStep from "@/components/pages/poll/layouts/PollStep";
 import TheLoan from "@/components/ui/loans/TheLoan";
 
+import final from "@/api/final";
+
 export default {
   components: {PollStep, TheLoan},
   data() {
@@ -70,7 +72,16 @@ export default {
         },
       ],
     };
-  }
+  },
+  methods: {
+    async getOffers() {
+      const response = await final();
+      this.loans = response;
+    }
+  },
+  created() {
+    this.getOffers();
+  },
 }
 </script>
 

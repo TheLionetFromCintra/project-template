@@ -3,7 +3,7 @@ import Store from '@/store';
 import getUser from './getUser';
 
 const api = axios.create({
-    withCredentials: true
+    withCredentials: true,
 })
 
 function apiCaller(path, options = {}, index = 0) {
@@ -17,7 +17,6 @@ function apiCaller(path, options = {}, index = 0) {
     if (method === 'post') {
         data.csrf = Store.getters['app/csrf'];
     }
-
 
     return new Promise((resolve, reject) => {
         // showLoader && Store.commit('app/load', true);

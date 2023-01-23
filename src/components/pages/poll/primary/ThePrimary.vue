@@ -98,7 +98,7 @@
           if (!this.formIsValid) {
             return;
           }
-          console.log(this.form)
+
           const { checkPhoneByCode } = await this.$store.dispatch('app/send', {
             contactData: this.form,
             // showLoader: send
